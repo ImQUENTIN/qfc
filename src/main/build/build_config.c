@@ -14,12 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Cleanflight.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+ 
 #include "stdbool.h"
 #include "stdint.h"
 
 #include "platform.h"
-
 #include "build_config.h"
-
 

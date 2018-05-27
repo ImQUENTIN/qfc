@@ -15,6 +15,10 @@
 #define USE_TARGET_CONFIG
 #define USE_QUAD_MIXER_ONLY         // 4旋翼
 
+// file name to save config
+#define EEPROM_FILENAME "eeprom.bin"
+#define EEPROM_IN_RAM
+#define EEPROM_SIZE     32768
 
 #define USE_RTC_TIME
 #define QFC

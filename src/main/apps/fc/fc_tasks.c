@@ -1,19 +1,11 @@
-/*
- * This file is part of Cleanflight.
- *
- * Cleanflight is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Cleanflight is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Cleanflight.  If not, see <http://www.gnu.org/licenses/>.
- */
+/************************************************************************************************
+* @file    fc_task.c
+* @author  亓岳鑫
+* @email   qiyuexin@yeah.net
+* @Version V2.0
+* @date    May 24th, 2018.
+* @brief   None
+************************************************************************************************/
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -23,7 +15,7 @@
 
 #include "build/debug.h"
 
-#include "cms/cms.h"
+//#include "cms/cms.h"
 
 #include "common/color.h"
 #include "common/utils.h"
@@ -35,7 +27,7 @@
 #include "drivers/compass/compass.h"
 #include "drivers/sensor.h"
 #include "drivers/serial.h"
-#include "drivers/stack_check.h"
+//#include "drivers/stack_check.h"
 //#include "drivers/transponder_ir.h"
 //#include "drivers/vtx_common.h"
 

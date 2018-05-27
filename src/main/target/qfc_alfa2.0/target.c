@@ -68,7 +68,7 @@ const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {
 // alternative defaults settings for MULTIFLITEPICO targets
 void targetConfiguration(void)
 {
-#ifndef QFC
+
     compassConfigMutable()->mag_hardware = MAG_NONE;            // disabled by default
 
     voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatscale = VBAT_SCALE;
@@ -119,8 +119,18 @@ void targetConfiguration(void)
         controlRateConfig->rcRates[FD_ROLL] = 70;
         controlRateConfig->rcRates[FD_PITCH] = 70;
     }
-	#endif
+
 }
+
 #endif
 
+#include <stdio.h>
+
+// stack part
+char _estack;
+char _Min_Stack_Size;
+
+// fake EEPROM
+static FILE *eepromFd = NULL;
+uint8_t eepromData[EEPROM_SIZE];
 

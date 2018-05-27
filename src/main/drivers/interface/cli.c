@@ -36,7 +36,7 @@ extern uint8_t __config_end;
 #include "build/debug.h"
 #include "build/version.h"
 
-#include "cms/cms.h"
+//#include "cms/cms.h"
 
 #include "common/axis.h"
 #include "common/color.h"
@@ -53,7 +53,7 @@ extern uint8_t __config_end;
 #include "drivers/buf_writer.h"
 #include "drivers/bus_spi.h"
 #include "drivers/compass/compass.h"
-#include "drivers/display.h"
+//#include "drivers/display.h"
 #include "drivers/dma.h"
 #include "drivers/flash.h"
 #include "drivers/io.h"
@@ -62,17 +62,17 @@ extern uint8_t __config_end;
 #include "drivers/sdcard.h"
 #include "drivers/sensor.h"
 #include "drivers/serial.h"
-#include "drivers/serial_escserial.h"
+//#include "drivers/serial_escserial.h"
 #include "drivers/rangefinder/rangefinder_hcsr04.h"
 #include "drivers/sound_beeper.h"
-#include "drivers/stack_check.h"
+//#include "drivers/stack_check.h"
 #include "drivers/system.h"
-#include "drivers/transponder_ir.h"
+//#include "drivers/transponder_ir.h"
 #include "drivers/time.h"
 #include "drivers/timer.h"
 #include "drivers/light_led.h"
-#include "drivers/camera_control.h"
-#include "drivers/vtx_common.h"
+//#include "drivers/camera_control.h"
+//#include "drivers/vtx_common.h"
 
 #include "fc/config.h"
 #include "fc/controlrate_profile.h"
@@ -101,18 +101,18 @@ extern uint8_t __config_end;
 #include "io/gimbal.h"
 #include "io/gps.h"
 #include "io/ledstrip.h"
-#include "io/osd.h"
+//#include "io/osd.h"
 #include "io/serial.h"
-#include "io/transponder_ir.h"
-#include "io/vtx_control.h"
-#include "io/vtx.h"
+//#include "io/transponder_ir.h"
+//#include "io/vtx_control.h"
+//#include "io/vtx.h"
 
 #include "pg/adc.h"
 #include "pg/beeper.h"
 #include "pg/beeper_dev.h"
 #include "pg/bus_i2c.h"
 #include "pg/bus_spi.h"
-#include "pg/pinio.h"
+//#include "pg/pinio.h"
 #include "pg/pg.h"
 #include "pg/pg_ids.h"
 #include "pg/rx_pwm.h"
@@ -136,7 +136,7 @@ extern uint8_t __config_end;
 
 #include "telemetry/frsky_hub.h"
 #include "telemetry/telemetry.h"
-
+#include "bitops.h"
 
 static serialPort_t *cliPort;
 
@@ -3054,6 +3054,7 @@ static void cliStatus(char *cmdline)
     cliPrintf("Stack used: %d, ", stackUsedSize());
 #endif
     cliPrintLinef("Stack size: %d, Stack address: 0x%x", stackTotalSize(), stackHighMem());
+
 #ifdef EEPROM_IN_RAM
 #define CONFIG_SIZE EEPROM_SIZE
 #else

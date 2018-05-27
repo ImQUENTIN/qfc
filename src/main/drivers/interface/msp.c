@@ -1,19 +1,11 @@
-/*
- * This file is part of Cleanflight.
- *
- * Cleanflight is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Cleanflight is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Cleanflight.  If not, see <http://www.gnu.org/licenses/>.
- */
+/************************************************************************************************
+* @file    interface\msp.c
+* @author  亓岳鑫
+* @email   qiyuexin@yeah.net
+* @Version V2.0
+* @date    May 24th, 2018.
+* @brief   None
+************************************************************************************************/
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -47,15 +39,15 @@
 #include "drivers/compass/compass.h"
 #include "drivers/flash.h"
 #include "drivers/io.h"
-#include "drivers/max7456.h"
+//#include "drivers/max7456.h"
 #include "drivers/pwm_output.h"
 #include "drivers/sdcard.h"
 #include "drivers/serial.h"
-#include "drivers/serial_escserial.h"
+//#include "drivers/serial_escserial.h"
 #include "drivers/system.h"
-#include "drivers/vtx_common.h"
-#include "drivers/transponder_ir.h"
-#include "drivers/camera_control.h"
+//#include "drivers/vtx_common.h"
+//#include "drivers/transponder_ir.h"
+//#include "drivers/camera_control.h"
 
 #include "fc/config.h"
 #include "fc/controlrate_profile.h"
@@ -85,15 +77,15 @@
 #include "io/gps.h"
 #include "io/ledstrip.h"
 #include "io/motors.h"
-#include "io/osd.h"
-#include "io/osd_slave.h"
+//#include "io/osd.h"
+//#include "io/osd_slave.h"
 #include "io/serial.h"
-#include "io/serial_4way.h"
+//#include "io/serial_4way.h"
 #include "io/servos.h"
-#include "io/transponder_ir.h"
-#include "io/vtx_control.h"
-#include "io/vtx.h"
-#include "io/vtx_string.h"
+//#include "io/transponder_ir.h"
+//#include "io/vtx_control.h"
+//#include "io/vtx.h"
+//#include "io/vtx_string.h"
 
 #include "msp/msp_serial.h"
 

@@ -82,6 +82,7 @@ typedef struct {
 
 void initEEPROM(void)
 {
+#if 0
     // Verify that this architecture packs as expected.
     BUILD_BUG_ON(offsetof(packingTest_t, byte) != 0);
     BUILD_BUG_ON(offsetof(packingTest_t, word) != 1);
@@ -89,11 +90,13 @@ void initEEPROM(void)
 
     BUILD_BUG_ON(sizeof(configFooter_t) != 2);
     BUILD_BUG_ON(sizeof(configRecord_t) != 6);
+#endif
 }
 
 // Scan the EEPROM config. Returns true if the config is valid.
 bool isEEPROMContentValid(void)
 {
+#if 0
     const uint8_t *p = &__config_start;
     const configHeader_t *header = (const configHeader_t *)p;
 
@@ -139,6 +142,9 @@ bool isEEPROMContentValid(void)
 
     // CRC has the property that if the CRC itself is included in the calculation the resulting CRC will have constant value
     return crc == CRC_CHECK_VALUE;
+#else
+    return false;
+#endif
 }
 
 uint16_t getEEPROMConfigSize(void)
@@ -151,6 +157,7 @@ uint16_t getEEPROMConfigSize(void)
 // this function assumes that EEPROM content is valid
 static const configRecord_t *findEEPROM(const pgRegistry_t *reg, configRecordFlags_e classification)
 {
+#if 0
     const uint8_t *p = &__config_start;
     p += sizeof(configHeader_t);             // skip header
     while (true) {
@@ -164,6 +171,7 @@ static const configRecord_t *findEEPROM(const pgRegistry_t *reg, configRecordFla
             return record;
         p += record->size;
     }
+#endif
     // record not found
     return NULL;
 }
@@ -173,6 +181,7 @@ static const configRecord_t *findEEPROM(const pgRegistry_t *reg, configRecordFla
 //   but each PG is loaded/initialized exactly once and in defined order.
 bool loadEEPROM(void)
 {
+#if 0
     PG_FOREACH(reg) {
         const configRecord_t *rec = findEEPROM(reg, CR_CLASSICATION_SYSTEM);
         if (rec) {
@@ -183,10 +192,15 @@ bool loadEEPROM(void)
         }
     }
     return true;
+#else
+        return true;
+#endif
+
 }
 
 static bool writeSettingsToEEPROM(void)
 {
+#if 0
     config_streamer_t streamer;
     config_streamer_init(&streamer);
 
@@ -230,12 +244,16 @@ static bool writeSettingsToEEPROM(void)
     config_streamer_flush(&streamer);
 
     const bool success = config_streamer_finish(&streamer) == 0;
-
     return success;
+#else
+        return false;
+#endif
+
 }
 
 void writeConfigToEEPROM(void)
 {
+#if 0
     bool success = false;
     // write it
     for (int attempt = 0; attempt < 3 && !success; attempt++) {
@@ -250,4 +268,5 @@ void writeConfigToEEPROM(void)
 
     // Flash write failed - just die now
     failureMode(FAILURE_FLASH_WRITE_FAILED);
+#endif
 }

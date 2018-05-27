@@ -40,7 +40,7 @@
 #define USE_DSHOT
 #define USE_ESC_SENSOR
 #define I2C3_OVERCLOCK true
-#define USE_GYRO_DATA_ANALYSE
+//#define USE_GYRO_DATA_ANALYSE
 #define USE_ADC
 #define USE_ADC_INTERNAL
 
@@ -95,14 +95,14 @@
 #define USE_CLI
 #define USE_PPM
 #define USE_PWM
-#define USE_SERIAL_RX
-#define USE_SERIALRX_CRSF       // Team Black Sheep Crossfire protocol
-#define USE_SERIALRX_IBUS       // FlySky and Turnigy receivers
+//#define USE_SERIAL_RX
+//#define USE_SERIALRX_CRSF       // Team Black Sheep Crossfire protocol
+//#define USE_SERIALRX_IBUS       // FlySky and Turnigy receivers
 #define USE_SERIALRX_SBUS       // Frsky and Futaba receivers
-#define USE_SERIALRX_SPEKTRUM   // SRXL, DSM2 and DSMX protocol
-#define USE_SERIALRX_SUMD       // Graupner Hott protocol
-#define USE_SERIALRX_SUMH       // Graupner legacy protocol
-#define USE_SERIALRX_XBUS       // JR
+//#define USE_SERIALRX_SPEKTRUM   // SRXL, DSM2 and DSMX protocol
+//#define USE_SERIALRX_SUMD       // Graupner Hott protocol
+//#define USE_SERIALRX_SUMH       // Graupner legacy protocol
+//#define USE_SERIALRX_XBUS       // JR
 
 #if (FLASH_SIZE > 64)
 #define MAX_PROFILE_COUNT 3
@@ -139,7 +139,7 @@
 #define USE_RCDEVICE
 #define USE_RTC_TIME
 #define USE_RX_MSP
-#define USE_SERIALRX_FPORT      // FrSky FPort
+//#define USE_SERIALRX_FPORT      // FrSky FPort
 #define USE_TELEMETRY_CRSF
 #define USE_TELEMETRY_SRXL
 #define USE_VIRTUAL_CURRENT_METER
@@ -171,7 +171,7 @@
 #define USE_NAV
 #define USE_OSD_ADJUSTMENTS
 #define USE_SENSOR_NAMES
-#define USE_SERIALRX_JETIEXBUS
+//#define USE_SERIALRX_JETIEXBUS
 #define USE_TELEMETRY_IBUS
 #define USE_TELEMETRY_IBUS_EXTENDED
 #define USE_TELEMETRY_JETIEXBUS

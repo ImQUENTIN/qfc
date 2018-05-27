@@ -27,7 +27,9 @@
 
 //#define SOFT_I2C // enable to test software i2c
 
-#ifndef __CC_ARM    // keil 会自动定义 __CC_ARM 为 1
-#define REQUIRE_CC_ARM_PRINTF_SUPPORT
-#define REQUIRE_PRINTF_LONG_SUPPORT
-#endif
+#define REQUIRE_CC_ARM_PRINTF_SUPPORT   // 使用自定义printf
+
+//#ifndef __CC_ARM    // keil 会自动定义 __CC_ARM 为 1
+//#define REQUIRE_CC_ARM_PRINTF_SUPPORT
+//#define REQUIRE_PRINTF_LONG_SUPPORT
+//#endif

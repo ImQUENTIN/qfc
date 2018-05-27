@@ -24,17 +24,17 @@
 
 #include "blackbox/blackbox.h"
 
-#include "cms/cms.h"
+//#include "cms/cms.h"
 
 #include "common/utils.h"
 
 #include "drivers/adc.h"
 #include "drivers/bus_i2c.h"
 #include "drivers/bus_spi.h"
-#include "drivers/camera_control.h"
+//#include "drivers/camera_control.h"
 #include "drivers/light_led.h"
 #include "drivers/pinio.h"
-#include "drivers/vtx_common.h"
+//#include "drivers/vtx_common.h"
 
 #include "fc/config.h"
 #include "fc/controlrate_profile.h"
@@ -57,10 +57,10 @@
 #include "io/gimbal.h"
 #include "io/gps.h"
 #include "io/ledstrip.h"
-#include "io/osd.h"
-#include "io/vtx.h"
-#include "io/vtx_control.h"
-#include "io/vtx_rtc6705.h"
+//#include "io/osd.h"
+//#include "io/vtx.h"
+//#include "io/vtx_control.h"
+//#include "io/vtx_rtc6705.h"
 
 #include "pg/adc.h"
 #include "pg/beeper.h"
@@ -69,7 +69,7 @@
 #include "pg/max7456.h"
 #include "pg/pg.h"
 #include "pg/pg_ids.h"
-#include "pg/pinio.h"
+//#include "pg/pinio.h"
 #include "pg/piniobox.h"
 #include "pg/rx_pwm.h"
 #include "pg/sdcard.h"

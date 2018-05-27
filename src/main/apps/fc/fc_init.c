@@ -272,19 +272,17 @@ void init(void)
     IOInitGlobal();
 
 //#ifdef USE_HARDWARE_REVISION_DETECTION
-//    detectHardwareRevision();	// unused
+//    detectHardwareRevision(); // unused
 //#endif
 //
 //#ifdef USE_BRUSHED_ESC_AUTODETECT
-//    detectBrushedESC();			// unused
+//    detectBrushedESC();           // unused
 //#endif
 
 
-
-//	// unused
-//    initEEPROM();		// unused
-//    ensureEEPROMContainsValidData();		
-    readEEPROM();		// use partial except eeprom
+    initEEPROM();     // do nothing
+    ensureEEPROMContainsValidData();    // use reset func
+    readEEPROM();       // use partial except eeprom
 
 
 
@@ -765,5 +763,5 @@ void init(void)
     fcTasksInit();
 
     systemState |= SYSTEM_STATE_READY;
-	#endif
+    #endif
 }

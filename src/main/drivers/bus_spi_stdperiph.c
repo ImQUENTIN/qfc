@@ -22,6 +22,7 @@
 #include "drivers/io.h"
 #include "drivers/rcc.h"
 
+#include "bitops.h"
 //spiDevice_t spiDevice[SPIDEV_COUNT];
 
 void spiInitDevice(SPIDevice device)

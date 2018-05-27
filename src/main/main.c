@@ -17,8 +17,10 @@
 
 #include "scheduler/scheduler.h"
 
+#include "bitops.h"
 // 记得添加：
 // mpuResetFn,  L27 @system_stm32f4.c
+//     targetConfiguration();   L455,@config.c
 
 int main(void)
 {

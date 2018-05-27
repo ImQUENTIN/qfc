@@ -126,6 +126,7 @@ static const motorMixer_t mixerQuadX[] = {
     { 1.0f,  1.0f,  1.0f,  1.0f },          // REAR_L
     { 1.0f,  1.0f, -1.0f, -1.0f },          // FRONT_L
 };
+    
 #ifndef USE_QUAD_MIXER_ONLY
 static const motorMixer_t mixerTricopter[] = {
     { 1.0f,  0.0f,  1.333333f,  0.0f },     // REAR
@@ -354,9 +355,12 @@ bool mixerIsTricopter(void)
 
 bool mixerIsOutputSaturated(int axis, float errorRate)
 {
+#if 0
     if (axis == FD_YAW && mixerIsTricopter()) {
         return mixerTricopterIsServoSaturated(errorRate);
-    } else {
+    } else 
+#endif
+    {
         return motorMixRange >= 1.0f;
     }
     return false;
@@ -415,9 +419,9 @@ void mixerInit(mixerMode_e mixerMode)
     currentMixerMode = mixerMode;
 
     initEscEndpoints();
-    if (mixerIsTricopter()) {
-        mixerTricopterInit();
-    }
+//    if (mixerIsTricopter()) {
+//        mixerTricopterInit();
+//    }
 }
 
 #ifndef USE_QUAD_MIXER_ONLY
@@ -693,9 +697,9 @@ static void applyMixToMotors(float motorMix[MAX_SUPPORTED_MOTORS])
     // roll/pitch/yaw. This could move throttle down, but also up for those low throttle flips.
     for (int i = 0; i < motorCount; i++) {
         float motorOutput = motorOutputMin + (motorOutputRange * (motorOutputMixSign * motorMix[i] + throttle * currentMixer[i].throttle));
-        if (mixerIsTricopter()) {
-            motorOutput += mixerTricopterMotorCorrection(i);
-        }
+//        if (mixerIsTricopter()) {
+//            motorOutput += mixerTricopterMotorCorrection(i);
+//        }
         if (failsafeIsActive()) {
             if (isMotorProtocolDshot()) {
                 motorOutput = (motorOutput < motorRangeMin) ? disarmMotorOutput : motorOutput; // Prevent getting into special reserved range
