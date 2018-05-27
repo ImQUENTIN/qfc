@@ -79,7 +79,7 @@
 #include "pg/adc.h"
 #include "pg/beeper_dev.h"
 #include "pg/bus_i2c.h"
-//#include "pg/bus_spi.h"
+#include "pg/bus_spi.h"
 #include "pg/flash.h"
 //#include "pg/pinio.h"
 #include "pg/piniobox.h"
@@ -286,7 +286,7 @@ void init(void)
 
 
 
-#if 0
+#if 1
 
     // !!TODO: Check to be removed when moving to generic targets
     if (strncasecmp(systemConfig()->boardIdentifier, TARGET_BOARD_IDENTIFIER, sizeof(TARGET_BOARD_IDENTIFIER))) {

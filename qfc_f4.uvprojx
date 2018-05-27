@@ -170,12 +170,12 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <Capability>1</Capability>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -395,7 +395,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile></ScatterFile>
+            <ScatterFile>.\Objects\qfc_f4.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -487,6 +487,21 @@
               <FileName>explog_approx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\common\explog_approx.c</FilePath>
+            </File>
+            <File>
+              <FileName>time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\time.c</FilePath>
+            </File>
+            <File>
+              <FileName>typeconversion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\typeconversion.c</FilePath>
+            </File>
+            <File>
+              <FileName>streambuf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\streambuf.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -677,6 +692,11 @@
               <FileName>rx_pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\drivers\rx\rx_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>stack_check.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\stack_check.c</FilePath>
             </File>
           </Files>
         </Group>
