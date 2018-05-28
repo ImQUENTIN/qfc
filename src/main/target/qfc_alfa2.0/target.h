@@ -15,9 +15,25 @@
 #define USE_TARGET_CONFIG
 #define USE_QUAD_MIXER_ONLY         // 4旋翼
 
+// file name to save config
+#define EEPROM_FILENAME "eeprom.bin"
+#define EEPROM_IN_RAM
+#define EEPROM_SIZE     32768
+
+
 
 #define USE_RTC_TIME
 #define QFC
+
+#define DEFAULT_FEATURES (FEATURE_MOTOR_STOP )     // default featuresf
+
+/************************************************************************************************
+* @note    adc	@2018/5/28
+************************************************************************************************/
+
+#define DEFAULT_VOLTAGE_METER_SOURCE    VOLTAGE_METER_ADC
+#define DEFAULT_CURRENT_METER_SOURCE	CURRENT_METER_ADC
+
 
 /************************************************************************************************
 * @note    GPIO
@@ -179,17 +195,17 @@
 #define USE_UART1_RX_DMA
 #define USE_UART1_TX_DMA
 
-#define SERIALRC_UART                       SERIAL_PORT_USART2
-#define SERIALRC_PROVIDER                   SERIALRC_SBUS
+//#define SERIALRC_UART                       SERIAL_PORT_USART2
+//#define SERIALRC_PROVIDER                   SERIALRC_SBUS
 //#define RX_CHANNELS_TAER
 //#define DEFAULT_RC_FEATURE                  FEATURE_RC_SERIAL
 //#define AVOID_UART2_FOR_PWM_PPM
 
 #define GPS_UART                            SERIAL_PORT_USART3
-#define TELEMETRY_UART                      SERIAL_PORT_UART4
-#define TELEMETRY_PROVIDER_DEFAULT          FUNCTION_TELEMETRY_MAVLINK
-#define SBUS_TELEMETRY_UART                 SERIAL_PORT_UART5
-
+//#define TELEMETRY_UART                      SERIAL_PORT_UART4
+//#define TELEMETRY_PROVIDER_DEFAULT          FUNCTION_TELEMETRY_MAVLINK
+//#define SBUS_TELEMETRY_UART                 SERIAL_PORT_UART5
+//
 
 /************************************************************************************************
 * @note    ADC
@@ -207,16 +223,21 @@
 * @note    SONAR
 ************************************************************************************************/
 #define USE_SONAR
-#define SONAR_TRIGGER_PIN       PA4
-#define SONAR_ECHO_PIN          PA2
+#define SONAR_TRIGGER_PIN                   PA4
+#define SONAR_ECHO_PIN                      PA2
 
+// 测距仪
+#define USE_RANGEFINDER
+#define USE_RANGEFINDER_HCSR04
+#define RANGEFINDER_HCSR04_TRIGGER_PIN       PA4
+#define RANGEFINDER_HCSR04_ECHO_PIN          PA2
 
 /************************************************************************************************
 * @note    ESC
 ************************************************************************************************/
     
-#define USE_ESC_SENSOR
-    
+//#define USE_ESC_SENSOR
+//    
 
 
 

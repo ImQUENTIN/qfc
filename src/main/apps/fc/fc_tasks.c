@@ -1,19 +1,11 @@
-/*
- * This file is part of Cleanflight.
- *
- * Cleanflight is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Cleanflight is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Cleanflight.  If not, see <http://www.gnu.org/licenses/>.
- */
+/************************************************************************************************
+* @file    fc_task.c
+* @author  亓岳鑫
+* @email   qiyuexin@yeah.net
+* @Version V2.0
+* @date    May 24th, 2018.
+* @brief   None
+************************************************************************************************/
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -23,7 +15,7 @@
 
 #include "build/debug.h"
 
-#include "cms/cms.h"
+//#include "cms/cms.h"
 
 #include "common/color.h"
 #include "common/utils.h"
@@ -35,7 +27,7 @@
 #include "drivers/compass/compass.h"
 #include "drivers/sensor.h"
 #include "drivers/serial.h"
-#include "drivers/stack_check.h"
+//#include "drivers/stack_check.h"
 //#include "drivers/transponder_ir.h"
 //#include "drivers/vtx_common.h"
 
@@ -118,7 +110,9 @@ static void taskHandleSerial(timeUs_t currentTimeUs)
 void taskBatteryAlerts(timeUs_t currentTimeUs)
 {
     if (!ARMING_FLAG(ARMED)) {
-        // the battery *might* fall out in flight, but if that happens the FC will likely be off too unless the user has battery backup.
+		// 没有解锁，
+        // the battery *might* fall out in flight, but if that happens the FC will likely
+        // be off too unless the user has battery backup.
         batteryUpdatePresence();
     }
     batteryUpdateStates(currentTimeUs);
@@ -331,16 +325,17 @@ void fcTasksInit(void)
 }
 
 cfTask_t cfTasks[TASK_COUNT] = {
+	
     [TASK_SYSTEM] = {
         .taskName = "SYSTEM",
-        .taskFunc = taskSystem,
+        .taskFunc = taskSystem,	// 计算占用率
         .desiredPeriod = TASK_PERIOD_HZ(10),        // 10Hz, every 100 ms
         .staticPriority = TASK_PRIORITY_MEDIUM_HIGH,
     },
 
     [TASK_SERIAL] = {
         .taskName = "SERIAL",
-        .taskFunc = taskHandleSerial,
+        .taskFunc = taskHandleSerial,	// msp串口接收字符处理：多种协议的命令解析
 #ifdef USE_OSD_SLAVE
         .checkFunc = taskSerialCheck,
         .desiredPeriod = TASK_PERIOD_HZ(100),

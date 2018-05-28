@@ -1,19 +1,11 @@
-/*
- * This file is part of Cleanflight.
- *
- * Cleanflight is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Cleanflight is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Cleanflight.  If not, see <http://www.gnu.org/licenses/>.
- */
+/************************************************************************************************
+* @file    acceleration.c
+* @author  亓岳鑫
+* @email   qiyuexin@yeah.net
+* @Version V2.0
+* @date    May 24th, 2018.
+* @brief   None
+************************************************************************************************/
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -34,22 +26,22 @@
 #include "pg/pg_ids.h"
 
 #include "drivers/accgyro/accgyro.h"
-#include "drivers/accgyro/accgyro_adxl345.h"
+//#include "drivers/accgyro/accgyro_adxl345.h"
 #include "drivers/accgyro/accgyro_bma280.h"
 #include "drivers/accgyro/accgyro_fake.h"
-#include "drivers/accgyro/accgyro_l3g4200d.h"
-#include "drivers/accgyro/accgyro_l3gd20.h"
-#include "drivers/accgyro/accgyro_lsm303dlhc.h"
-#include "drivers/accgyro/accgyro_mma845x.h"
+//#include "drivers/accgyro/accgyro_l3g4200d.h"
+//#include "drivers/accgyro/accgyro_l3gd20.h"
+//#include "drivers/accgyro/accgyro_lsm303dlhc.h"
+//#include "drivers/accgyro/accgyro_mma845x.h"
 #include "drivers/accgyro/accgyro_mpu.h"
-#include "drivers/accgyro/accgyro_mpu3050.h"
-#include "drivers/accgyro/accgyro_mpu6050.h"
-#include "drivers/accgyro/accgyro_mpu6500.h"
-#include "drivers/accgyro/accgyro_spi_bmi160.h"
-#include "drivers/accgyro/accgyro_spi_icm20649.h"
-#include "drivers/accgyro/accgyro_spi_icm20689.h"
+//#include "drivers/accgyro/accgyro_mpu3050.h"
+//#include "drivers/accgyro/accgyro_mpu6050.h"
+//#include "drivers/accgyro/accgyro_mpu6500.h"
+//#include "drivers/accgyro/accgyro_spi_bmi160.h"
+//#include "drivers/accgyro/accgyro_spi_icm20649.h"
+//#include "drivers/accgyro/accgyro_spi_icm20689.h"
 #include "drivers/accgyro/accgyro_spi_mpu6000.h"
-#include "drivers/accgyro/accgyro_spi_mpu6500.h"
+//#include "drivers/accgyro/accgyro_spi_mpu6500.h"
 #include "drivers/accgyro/accgyro_spi_mpu9250.h"
 #include "drivers/bus_spi.h"
 

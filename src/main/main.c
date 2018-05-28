@@ -17,18 +17,21 @@
 
 #include "scheduler/scheduler.h"
 
+#include "bitops.h"
 // 记得添加：
 // mpuResetFn,  L27 @system_stm32f4.c
+//     targetConfiguration();   L455,@config.c
 
 int main(void)
 {
     init();
     while (true) {
-//        scheduler();
-//        processLoopback();
-//#ifdef SIMULATOR_BUILD
-//        delayMicroseconds_real(50); // max rate 20kHz
-//#endif
+        scheduler();
+        processLoopback();
+#ifdef SIMULATOR_BUILD
+        delayMicroseconds_real(50); // max rate 20kHz
+#endif
     }
+
     return 0;
 }

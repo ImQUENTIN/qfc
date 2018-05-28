@@ -1,20 +1,11 @@
-/*
- * This file is part of Cleanflight.
- *
- * Cleanflight is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Cleanflight is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Cleanflight.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+/************************************************************************************************
+* @file    crsf.c
+* @author  亓岳鑫
+* @email   qiyuexin@yeah.net
+* @Version V2.0
+* @date    May 24th, 2018.
+* @brief   None
+************************************************************************************************/
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
@@ -99,7 +90,7 @@ bool bufferCrsfMspFrame(uint8_t *frameStart, int frameLength)
 
 bool handleCrsfMspFrameBuffer(uint8_t payloadSize, mspResponseFnPtr responseFn)
 {
-    bool requestHandled = false;
+    bool requestHandled = false, ret = false;
     if (!mspRxBuffer.len) {
         return false;
     }
@@ -110,12 +101,16 @@ bool handleCrsfMspFrameBuffer(uint8_t payloadSize, mspResponseFnPtr responseFn)
             requestHandled |= sendMspReply(payloadSize, responseFn);
         }
         pos += CRSF_MSP_LENGTH_OFFSET + mspFrameLength;
+        
+        
         ATOMIC_BLOCK(NVIC_PRIO_SERIALUART1) {
             if (pos >= mspRxBuffer.len) {
                 mspRxBuffer.len = 0;
-                return requestHandled;
+                ret = true;
             }
-        }
+       }    // changed here by q
+        if(ret)
+            return requestHandled;            
     }
     return requestHandled;
 }

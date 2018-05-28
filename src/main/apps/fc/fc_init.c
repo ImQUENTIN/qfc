@@ -79,7 +79,7 @@
 #include "pg/adc.h"
 #include "pg/beeper_dev.h"
 #include "pg/bus_i2c.h"
-//#include "pg/bus_spi.h"
+#include "pg/bus_spi.h"
 #include "pg/flash.h"
 //#include "pg/pinio.h"
 #include "pg/piniobox.h"
@@ -250,6 +250,22 @@ void spiPreInit(void)
 }
 #endif
 
+void mytest(void)
+{
+    #if 0
+    IO_t pin1 = IOGetByTag(IO_TAG(PB6));
+    IO_t pin2 = IOGetByTag(IO_TAG(PB7));
+    
+    
+    IOConfigGPIO(pin1, IOCFG_OUT_PP);
+    IOConfigGPIO(pin2, IOCFG_OUT_PP);
+    
+    IOWrite(pin1, 1);
+    IOWrite(pin2, 0);
+
+    while(1);
+#endif
+}
 void init(void)
 {
 //#ifdef USE_ITCM_RAM
@@ -264,31 +280,28 @@ void init(void)
 //    HAL_Init();
 //#endif
 
+
+
     printfSupportInit();
 
-    systemInit();
+    systemInit();       
 
     // initialize IO (needed for all IO operations)
     IOInitGlobal();
 
 //#ifdef USE_HARDWARE_REVISION_DETECTION
-//    detectHardwareRevision();	// unused
+//    detectHardwareRevision(); // unused
 //#endif
 //
 //#ifdef USE_BRUSHED_ESC_AUTODETECT
-//    detectBrushedESC();			// unused
+//    detectBrushedESC();           // unused
 //#endif
 
 
+    initEEPROM();     // do nothing
+    ensureEEPROMContainsValidData();    // use reset func
+    readEEPROM();       // use partial except eeprom
 
-//	// unused
-//    initEEPROM();		// unused
-//    ensureEEPROMContainsValidData();		
-    readEEPROM();		// use partial except eeprom
-
-
-
-#if 0
 
     // !!TODO: Check to be removed when moving to generic targets
     if (strncasecmp(systemConfig()->boardIdentifier, TARGET_BOARD_IDENTIFIER, sizeof(TARGET_BOARD_IDENTIFIER))) {
@@ -311,8 +324,12 @@ void init(void)
 #if !defined(UNIT_TEST) && !defined(USE_FAKE_LED)
     ledInit(statusLedConfig());
 #endif
+
+    LED0_ON;
+    LED1_ON;
     LED2_ON;
 
+    mytest();
 #ifdef USE_EXTI
     EXTIInit();
 #endif
@@ -420,6 +437,7 @@ void init(void)
 #ifdef BEEPER
     beeperInit(beeperDevConfig());
 #endif
+
 /* temp until PGs are implemented. */
 #if defined(USE_INVERTER) && !defined(SITL)
     initInverters(serialPinConfig());
@@ -538,6 +556,10 @@ void init(void)
 
 #ifdef USE_PINIOBOX
     pinioBoxInit(pinioBoxConfig());
+#endif
+        
+#ifdef BEEPER
+    beeperInit(beeperDevConfig());
 #endif
 
     LED1_ON;
@@ -765,5 +787,4 @@ void init(void)
     fcTasksInit();
 
     systemState |= SYSTEM_STATE_READY;
-	#endif
 }

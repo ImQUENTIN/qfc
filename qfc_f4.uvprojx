@@ -170,12 +170,12 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <Capability>1</Capability>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -395,7 +395,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile></ScatterFile>
+            <ScatterFile>.\Objects\qfc_f4.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -458,6 +458,56 @@
               <FileType>1</FileType>
               <FilePath>.\src\main\common\printf.c</FilePath>
             </File>
+            <File>
+              <FileName>bitarray.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\bitarray.c</FilePath>
+            </File>
+            <File>
+              <FileName>encoding.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\encoding.c</FilePath>
+            </File>
+            <File>
+              <FileName>maths.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\maths.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitops.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\bitops.c</FilePath>
+            </File>
+            <File>
+              <FileName>filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>explog_approx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\explog_approx.c</FilePath>
+            </File>
+            <File>
+              <FileName>time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\time.c</FilePath>
+            </File>
+            <File>
+              <FileName>typeconversion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\typeconversion.c</FilePath>
+            </File>
+            <File>
+              <FileName>streambuf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\streambuf.c</FilePath>
+            </File>
+            <File>
+              <FileName>gps_conversion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\gps_conversion.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -467,6 +517,11 @@
               <FileName>feature.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\config\feature.c</FilePath>
+            </File>
+            <File>
+              <FileName>config_eeprom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\config\config_eeprom.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -624,11 +679,6 @@
               <FilePath>.\src\main\drivers\pwm_output_dshot.c</FilePath>
             </File>
             <File>
-              <FileName>stack_check.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main\drivers\stack_check.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\drivers\timer.c</FilePath>
@@ -642,6 +692,26 @@
               <FileName>bus_i2c_stm32f10x_4x.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\drivers\bus_i2c_stm32f10x_4x.c</FilePath>
+            </File>
+            <File>
+              <FileName>rx_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\rx\rx_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>stack_check.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\stack_check.c</FilePath>
+            </File>
+            <File>
+              <FileName>rangefinder_hcsr04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\rangefinder\rangefinder_hcsr04.c</FilePath>
+            </File>
+            <File>
+              <FileName>rangefinder_lidartf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\rangefinder\rangefinder_lidartf.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -733,6 +803,56 @@
               <FileType>1</FileType>
               <FilePath>.\src\main\apps\fc\config.c</FilePath>
             </File>
+            <File>
+              <FileName>controlrate_profile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\controlrate_profile.c</FilePath>
+            </File>
+            <File>
+              <FileName>fc_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\fc_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>fc_dispatch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\fc_dispatch.c</FilePath>
+            </File>
+            <File>
+              <FileName>fc_hardfaults.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\fc_hardfaults.c</FilePath>
+            </File>
+            <File>
+              <FileName>fc_rc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\fc_rc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fc_tasks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\fc_tasks.c</FilePath>
+            </File>
+            <File>
+              <FileName>rc_adjustments.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\rc_adjustments.c</FilePath>
+            </File>
+            <File>
+              <FileName>rc_controls.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\rc_controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>rc_modes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\rc_modes.c</FilePath>
+            </File>
+            <File>
+              <FileName>runtime_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\fc\runtime_config.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -757,6 +877,11 @@
               <FileName>serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\drivers\io\serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>statusindicator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\io\statusindicator.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -807,11 +932,6 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\drivers\sensors\gyro.c</FilePath>
-            </File>
-            <File>
-              <FileName>gyroanalyse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main\drivers\sensors\gyroanalyse.c</FilePath>
             </File>
             <File>
               <FileName>initialisation.c</FileName>
@@ -867,6 +987,116 @@
               <FileName>servos.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main\apps\flight\servos.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>rx</GroupName>
+          <Files>
+            <File>
+              <FileName>sbus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\rx\sbus.c</FilePath>
+            </File>
+            <File>
+              <FileName>rx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\rx\rx.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\rx\pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>msp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\rx\msp.c</FilePath>
+            </File>
+            <File>
+              <FileName>sbus_channels.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\rx\sbus_channels.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sheduler</GroupName>
+          <Files>
+            <File>
+              <FileName>scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\apps\scheduler\scheduler.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>interface</GroupName>
+          <Files>
+            <File>
+              <FileName>cli.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\interface\cli.c</FilePath>
+            </File>
+            <File>
+              <FileName>msp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\interface\msp.c</FilePath>
+            </File>
+            <File>
+              <FileName>msp_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\interface\msp_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>settings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\interface\settings.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>msp</GroupName>
+          <Files>
+            <File>
+              <FileName>msp_serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\msp\msp_serial.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>accgyro</GroupName>
+          <Files>
+            <File>
+              <FileName>gyro_sync.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\accgyro\gyro_sync.c</FilePath>
+            </File>
+            <File>
+              <FileName>accgyro_mpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\accgyro\accgyro_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>accgyro_fake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\accgyro\accgyro_fake.c</FilePath>
+            </File>
+            <File>
+              <FileName>accgyro_spi_mpu9250.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\accgyro\accgyro_spi_mpu9250.c</FilePath>
+            </File>
+            <File>
+              <FileName>accgyro_spi_mpu6000.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\accgyro\accgyro_spi_mpu6000.c</FilePath>
+            </File>
+            <File>
+              <FileName>accgyro_bma280.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\accgyro\accgyro_bma280.c</FilePath>
             </File>
           </Files>
         </Group>

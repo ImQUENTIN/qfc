@@ -446,15 +446,12 @@ void readEEPROM(void)
 #ifndef USE_OSD_SLAVE
     suspendRxSignal();
 #endif
-#ifndef QFC
+#if 0
     // Sanity check, read flash
     if (!loadEEPROM()) {
         failureMode(FAILURE_INVALID_EEPROM_CONTENTS);
     }
-#else
-	targetConfiguration();
 #endif
-
     validateAndFixConfig();
     activateConfig();
 
@@ -463,9 +460,11 @@ void readEEPROM(void)
 #endif
 }
 
-#if 0
+
 void writeEEPROM(void)
 {
+#if 0
+
 #ifndef USE_OSD_SLAVE
     suspendRxSignal();
 #endif
@@ -475,17 +474,18 @@ void writeEEPROM(void)
 #ifndef USE_OSD_SLAVE
     resumeRxSignal();
 #endif
+#endif
 }
 
 void resetEEPROM(void)
 {
     resetConfigs();
-    writeEEPROM();
+    writeEEPROM();      // do nothing
 }
 
 void ensureEEPROMContainsValidData(void)
 {
-    if (isEEPROMContentValid()) {
+    if (isEEPROMContentValid()) {   // always return false
         return;
     }
     resetEEPROM();
@@ -498,7 +498,6 @@ void saveConfigAndNotify(void)
     beeperConfirmationBeeps(1);
 }
 
-#endif
 
 #ifndef USE_OSD_SLAVE
 void changePidProfile(uint8_t pidProfileIndex)

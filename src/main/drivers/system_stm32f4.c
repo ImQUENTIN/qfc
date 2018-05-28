@@ -31,19 +31,23 @@ void systemReset(void)
     NVIC_SystemReset();
 }
 
-#ifndef QFC
+
 void systemResetToBootloader(void)
 {
     if (mpuResetFn) {
+        
         mpuResetFn();
     }
+#ifndef QFC
 
     *((uint32_t *)0x2001FFFC) = 0xDEADBEEF; // 128KB SRAM STM32F4XX
+#endif
 
     __disable_irq();
     NVIC_SystemReset();
+
 }
-#endif
+
 
 void enableGPIOPowerUsageAndNoiseReductions(void)
 {
