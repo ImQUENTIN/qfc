@@ -266,7 +266,7 @@ void init(void)
 
     printfSupportInit();
 
-    systemInit();
+    systemInit();       
 
     // initialize IO (needed for all IO operations)
     IOInitGlobal();
@@ -284,9 +284,6 @@ void init(void)
     ensureEEPROMContainsValidData();    // use reset func
     readEEPROM();       // use partial except eeprom
 
-
-
-#if 1
 
     // !!TODO: Check to be removed when moving to generic targets
     if (strncasecmp(systemConfig()->boardIdentifier, TARGET_BOARD_IDENTIFIER, sizeof(TARGET_BOARD_IDENTIFIER))) {
@@ -309,7 +306,11 @@ void init(void)
 #if !defined(UNIT_TEST) && !defined(USE_FAKE_LED)
     ledInit(statusLedConfig());
 #endif
+
+    LED0_ON;
+    LED1_ON;
     LED2_ON;
+    
 
 #ifdef USE_EXTI
     EXTIInit();
@@ -763,5 +764,4 @@ void init(void)
     fcTasksInit();
 
     systemState |= SYSTEM_STATE_READY;
-    #endif
 }

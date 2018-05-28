@@ -93,7 +93,7 @@
 
 
 #define USE_CLI
-#define USE_PPM
+//#define USE_PPM
 #define USE_PWM
 //#define USE_SERIAL_RX
 //#define USE_SERIALRX_CRSF       // Team Black Sheep Crossfire protocol
@@ -112,10 +112,10 @@
 
 #if (FLASH_SIZE > 64)
 #define USE_BLACKBOX
-#define USE_LED_STRIP
+//#define USE_LED_STRIP
 #define USE_RESOURCE_MGMT
 #define USE_RUNAWAY_TAKEOFF     // Runaway Takeoff Prevention (anti-taz)
-#define USE_SERVOS
+//#define USE_SERVOS
 #define USE_TELEMETRY
 #define USE_TELEMETRY_FRSKY_HUB
 #define USE_TELEMETRY_HOTT
@@ -132,13 +132,13 @@
 #define USE_HUFFMAN
 #define USE_MSP_DISPLAYPORT
 #define USE_MSP_OVER_TELEMETRY
-#define USE_OSD
-#define USE_OSD_OVER_MSP_DISPLAYPORT
+//#define USE_OSD
+//#define USE_OSD_OVER_MSP_DISPLAYPORT
 #define USE_PINIO
 #define USE_PINIOBOX
 #define USE_RCDEVICE
 #define USE_RTC_TIME
-#define USE_RX_MSP
+//#define USE_RX_MSP
 //#define USE_SERIALRX_FPORT      // FrSky FPort
 #define USE_TELEMETRY_CRSF
 #define USE_TELEMETRY_SRXL
@@ -164,7 +164,7 @@
 
 #if (FLASH_SIZE > 256)
 #define USE_ALT_HOLD
-#define USE_DASHBOARD
+//#define USE_DASHBOARD
 #define USE_GPS
 #define USE_GPS_NMEA
 #define USE_GPS_UBLOX

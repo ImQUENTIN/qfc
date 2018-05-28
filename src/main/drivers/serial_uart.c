@@ -41,11 +41,13 @@ static void uartSetMode(serialPort_t *instance, portMode_e mode)
     uartReconfigure(uartPort);
 }
 
+#if 0
 void uartTryStartTxDMA(uartPort_t *s)
 {
     // uartTryStartTxDMA must be protected, since it is called from
     // uartWrite and handleUsartTxDma (an ISR).
-
+    bool ret = false;   // add by q
+    
     ATOMIC_BLOCK(NVIC_PRIO_SERIALUART_TXDMA) {
 #ifdef STM32F4
         if (s->txDMAStream->CR & 1) {
@@ -122,8 +124,55 @@ void uartTryStartTxDMA(uartPort_t *s)
         DMA_Cmd(s->txDMAChannel, ENABLE);
 #endif
     }
+    
+}
+#else
+void uartTryStartTxDMA(uartPort_t *s)
+{
+    // uartTryStartTxDMA must be protected, since it is called from
+    // uartWrite and handleUsartTxDma (an ISR).
+    
+    ATOMIC_BLOCK(NVIC_PRIO_SERIALUART_TXDMA) {
+        if (s->txDMAStream->CR & 1) {
+            // DMA is already in progress
+//            return;
+        }
+        // For F4 (and F1), there are cases that NDTR (CNDTR for F1) is non-zero upon TC interrupt.
+        // We couldn't find out the root cause, so mask the case here.
+        else if (s->txDMAStream->NDTR) {
+            // Possible premature TC case.
+            DMA_Cmd(s->txDMAStream, ENABLE);
+        } 
+
+        // DMA_Cmd(s->txDMAStream, DISABLE); // XXX It's already disabled.
+
+        else if (s->port.txBufferHead == s->port.txBufferTail) {
+            // No more data to transmit.
+            s->txDMAEmpty = true;
+//            return;
+        } 
+
+        // Start a new transaction.
+        else{
+            DMA_MemoryTargetConfig(s->txDMAStream, (uint32_t)&s->port.txBuffer[s->port.txBufferTail], DMA_Memory_0);
+            //s->txDMAStream->M0AR = (uint32_t)&s->port.txBuffer[s->port.txBufferTail];
+            if (s->port.txBufferHead > s->port.txBufferTail) {
+                s->txDMAStream->NDTR = s->port.txBufferHead - s->port.txBufferTail;
+                s->port.txBufferTail = s->port.txBufferHead;
+            }
+            else {
+                s->txDMAStream->NDTR = s->port.txBufferSize - s->port.txBufferTail;
+                s->port.txBufferTail = 0;
+            }
+            s->txDMAEmpty = false;
+        }
+    }
+
+    return ;
+    
 }
 
+#endif
 static uint32_t uartTotalRxBytesWaiting(const serialPort_t *instance)
 {
     const uartPort_t *s = (const uartPort_t*)instance;

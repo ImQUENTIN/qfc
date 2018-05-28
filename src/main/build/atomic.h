@@ -22,8 +22,8 @@ static inline void __basepriRestoreMem(uint8_t *val)
 // set BASEPRI_MAX, with global memory barrier, returns true
 static inline uint8_t __basepriSetMemRetVal(uint8_t prio)
 {
-		uint8_t atomic_BASEPRI = __get_BASEPRI();
-	    if(prio && (atomic_BASEPRI == 0 || atomic_BASEPRI > prio)) {
+    uint8_t atomic_BASEPRI = __get_BASEPRI();
+    if(prio && (atomic_BASEPRI == 0 || atomic_BASEPRI > prio)) {
         __set_BASEPRI(prio);
     }
     return 1;
