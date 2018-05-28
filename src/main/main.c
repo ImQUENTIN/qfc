@@ -24,7 +24,6 @@
 
 int main(void)
 {
-
     init();
     while (true) {
         scheduler();
@@ -33,5 +32,6 @@ int main(void)
         delayMicroseconds_real(50); // max rate 20kHz
 #endif
     }
+
     return 0;
 }

@@ -165,6 +165,7 @@ void uartTryStartTxDMA(uartPort_t *s)
                 s->port.txBufferTail = 0;
             }
             s->txDMAEmpty = false;
+            DMA_Cmd(s->txDMAStream, ENABLE);
         }
     }
 

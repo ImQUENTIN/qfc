@@ -250,6 +250,22 @@ void spiPreInit(void)
 }
 #endif
 
+void mytest(void)
+{
+    #if 0
+    IO_t pin1 = IOGetByTag(IO_TAG(PB6));
+    IO_t pin2 = IOGetByTag(IO_TAG(PB7));
+    
+    
+    IOConfigGPIO(pin1, IOCFG_OUT_PP);
+    IOConfigGPIO(pin2, IOCFG_OUT_PP);
+    
+    IOWrite(pin1, 1);
+    IOWrite(pin2, 0);
+
+    while(1);
+#endif
+}
 void init(void)
 {
 //#ifdef USE_ITCM_RAM
@@ -263,6 +279,8 @@ void init(void)
 //#ifdef USE_HAL_DRIVER
 //    HAL_Init();
 //#endif
+
+
 
     printfSupportInit();
 
@@ -310,8 +328,8 @@ void init(void)
     LED0_ON;
     LED1_ON;
     LED2_ON;
-    
 
+    mytest();
 #ifdef USE_EXTI
     EXTIInit();
 #endif
@@ -419,6 +437,7 @@ void init(void)
 #ifdef BEEPER
     beeperInit(beeperDevConfig());
 #endif
+
 /* temp until PGs are implemented. */
 #if defined(USE_INVERTER) && !defined(SITL)
     initInverters(serialPinConfig());
@@ -537,6 +556,10 @@ void init(void)
 
 #ifdef USE_PINIOBOX
     pinioBoxInit(pinioBoxConfig());
+#endif
+        
+#ifdef BEEPER
+    beeperInit(beeperDevConfig());
 #endif
 
     LED1_ON;
