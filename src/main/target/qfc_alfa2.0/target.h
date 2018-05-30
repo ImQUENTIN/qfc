@@ -20,10 +20,12 @@
 #define EEPROM_IN_RAM
 #define EEPROM_SIZE     32768
 
+
 #define USE_RTC_TIME
 #define QFC
 
 #define DEFAULT_FEATURES (FEATURE_MOTOR_STOP )     // default featuresf
+
 
 /************************************************************************************************
 * @note    GPIO
@@ -89,8 +91,8 @@
 #define USE_BARO
 #define USE_FAKE_BARO
 //#define USE_BARO_BMP085
-//#define USE_BARO_BMP280
-//#define USE_BARO_MS5611
+#define USE_BARO_BMP280
+#define USE_BARO_MS5611
 
 //#define USE_MAX7456
 //#define MAX7456_SPI_INSTANCE    SPI2
@@ -203,11 +205,14 @@
 #define USE_ADC
 #define ADC_INSTANCE            ADC1
     //#define ADC_INSTANCE            ADC2
+    
 #define VBAT_ADC_PIN            PC0
 #define CURRENT_METER_ADC_PIN   PC1
-#define RSSI_ADC_PIN            PC2
-#define EXTERNAL1_ADC_PIN       PC3
+//#define RSSI_ADC_PIN            PC2
+#define EXTERNAL1_ADC_PIN       PC4
 
+#define DEFAULT_VOLTAGE_METER_SOURCE    VOLTAGE_METER_ADC
+#define DEFAULT_CURRENT_METER_SOURCE	CURRENT_METER_ADC
 
 /************************************************************************************************
 * @note    SONAR
@@ -226,8 +231,8 @@
 * @note    ESC
 ************************************************************************************************/
     
-#define USE_ESC_SENSOR
-    
+//#define USE_ESC_SENSOR
+//    
 
 
 

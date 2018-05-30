@@ -316,7 +316,7 @@ void configTimeBase(TIM_TypeDef *tim, uint16_t period, uint32_t hz)
 void timerConfigure(const timerHardware_t *timerHardwarePtr, uint16_t period, uint32_t hz)
 {
     configTimeBase(timerHardwarePtr->tim, period, hz);
-    TIM_Cmd(timerHardwarePtr->tim, ENABLE);
+//    TIM_Cmd(timerHardwarePtr->tim, ENABLE);
 
     uint8_t irq = timerInputIrq(timerHardwarePtr->tim);
     timerNVICConfigure(irq);
@@ -393,6 +393,7 @@ void timerChOvrHandlerInit(timerOvrHandlerRec_t *self, timerOvrHandlerCallback *
 // some synchronization mechanism is neccesary to avoid disturbing other channels (BASEPRI used now)
 static void timerChConfig_UpdateOverflow(timerConfig_t *cfg, TIM_TypeDef *tim) {
     timerOvrHandlerRec_t **chain = &cfg->overflowCallbackActive;
+    
     ATOMIC_BLOCK(NVIC_PRIO_TIMER) {
         for (int i = 0; i < CC_CHANNELS_PER_TIMER; i++)
             if (cfg->overflowCallback[i]) {
@@ -412,6 +413,7 @@ void timerChConfigCallbacks(const timerHardware_t *timHw, timerCCHandlerRec_t *e
     if (timerIndex >= USED_TIMER_COUNT) {
         return;
     }
+    
     uint8_t channelIndex = lookupChannelIndex(timHw->channel);
     if (edgeCallback == NULL)   // disable irq before changing callback to NULL
         TIM_ITConfig(timHw->tim, TIM_IT_CCx(timHw->channel), DISABLE);
@@ -422,7 +424,7 @@ void timerChConfigCallbacks(const timerHardware_t *timHw, timerCCHandlerRec_t *e
     if (edgeCallback)
         TIM_ITConfig(timHw->tim, TIM_IT_CCx(timHw->channel), ENABLE);
 
-    timerChConfig_UpdateOverflow(&timerConfig[timerIndex], timHw->tim);
+//    timerChConfig_UpdateOverflow(&timerConfig[timerIndex], timHw->tim);
 }
 
 // configure callbacks for pair of channels (1+2 or 3+4).
@@ -606,7 +608,7 @@ static void timCCxHandler(TIM_TypeDef *tim, timerConfig_t *timerConfig)
 {
     uint16_t capture;
     unsigned tim_status;
-    tim_status = tim->SR & tim->DIER;
+    tim_status = tim->SR;// & tim->DIER;
 #if 0
     while (tim_status) {
         // flags will be cleared by reading CCR in dual capture, make sure we call handler correctly
@@ -672,6 +674,7 @@ static void timCCxHandler(TIM_TypeDef *tim, timerConfig_t *timerConfig)
         tim->SR = ~TIM_IT_CC4;
         timerConfig->edgeCallback[3]->fn(timerConfig->edgeCallback[3], tim->CCR4);
     }
+    
 #endif
 }
 

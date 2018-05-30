@@ -321,6 +321,10 @@ void init(void)
     targetPreInit();
 #endif
 
+#ifdef BEEPER
+    beeperInit(beeperDevConfig());
+#endif
+
 #if !defined(UNIT_TEST) && !defined(USE_FAKE_LED)
     ledInit(statusLedConfig());
 #endif
@@ -384,6 +388,8 @@ void init(void)
 
     timerInit();  // timer must be initialized before any channel is allocated
 
+
+
 #ifdef BUS_SWITCH_PIN
     busSwitchInit();
 #endif
@@ -434,9 +440,7 @@ void init(void)
     }
 #endif
 
-#ifdef BEEPER
-    beeperInit(beeperDevConfig());
-#endif
+
 
 /* temp until PGs are implemented. */
 #if defined(USE_INVERTER) && !defined(SITL)

@@ -110,7 +110,9 @@ static void taskHandleSerial(timeUs_t currentTimeUs)
 void taskBatteryAlerts(timeUs_t currentTimeUs)
 {
     if (!ARMING_FLAG(ARMED)) {
-        // the battery *might* fall out in flight, but if that happens the FC will likely be off too unless the user has battery backup.
+		// 没有解锁，
+        // the battery *might* fall out in flight, but if that happens the FC will likely
+        // be off too unless the user has battery backup.
         batteryUpdatePresence();
     }
     batteryUpdateStates(currentTimeUs);
@@ -323,16 +325,17 @@ void fcTasksInit(void)
 }
 
 cfTask_t cfTasks[TASK_COUNT] = {
+	
     [TASK_SYSTEM] = {
         .taskName = "SYSTEM",
-        .taskFunc = taskSystem,
+        .taskFunc = taskSystem,	// 计算占用率
         .desiredPeriod = TASK_PERIOD_HZ(10),        // 10Hz, every 100 ms
         .staticPriority = TASK_PRIORITY_MEDIUM_HIGH,
     },
 
     [TASK_SERIAL] = {
         .taskName = "SERIAL",
-        .taskFunc = taskHandleSerial,
+        .taskFunc = taskHandleSerial,	// msp串口接收字符处理：多种协议的命令解析
 #ifdef USE_OSD_SLAVE
         .checkFunc = taskSerialCheck,
         .desiredPeriod = TASK_PERIOD_HZ(100),

@@ -503,6 +503,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\main\common\streambuf.c</FilePath>
             </File>
+            <File>
+              <FileName>gps_conversion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\common\gps_conversion.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

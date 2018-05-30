@@ -400,6 +400,7 @@ void pwmRxInit(const pwmConfig_t *pwmConfig)
 #endif
 
     }
+    
 }
 
 #define FIRST_PWM_PORT 0

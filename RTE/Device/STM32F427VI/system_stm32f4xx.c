@@ -250,8 +250,8 @@
 /******************************************************************************/
 
 /************************* PLL Parameters *************************************/
-/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */
-#define PLL_M      25
+/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N, 360Mhz */
+#define PLL_M      24
 /* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */
 #define PLL_Q      7
 
@@ -263,7 +263,7 @@
 
 #if defined (STM32F427_437xx) || defined (STM32F429_439xx)
 #define PLL_N      360
-/* SYSCLK = PLL_VCO / PLL_P */
+/* SYSCLK = PLL_VCO / PLL_P */      // 180Mhz
 #define PLL_P      2
 #endif /* STM32F427_437x || STM32F429_439xx */
 

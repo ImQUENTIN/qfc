@@ -25,13 +25,13 @@ const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {
     DEF_TIM(TIM4, CH3, PD14, TIM_USE_PWM,   0, 0), // S6_IN
     DEF_TIM(TIM4, CH2, PD13, TIM_USE_PWM,   0, 0), // S7_IN
     DEF_TIM(TIM4, CH1, PD12, TIM_USE_PWM,   0, 0), // S8_IN
-    
+
     DEF_TIM(TIM1, CH1, PE9,  TIM_USE_MOTOR, 0, 0), // S5_OUT
     DEF_TIM(TIM1, CH2, PE11, TIM_USE_MOTOR, 0, 0), // S6_OUT
     DEF_TIM(TIM1, CH3, PE13, TIM_USE_MOTOR, 0, 0), // S7_OUT
     DEF_TIM(TIM1, CH4, PE14, TIM_USE_MOTOR, 0, 0), // S8_OUT
-    
-    DEF_TIM(TIM2, CH1, PA15, TIM_USE_BEEPER, 0, 0), // beeper
+
+//    DEF_TIM(TIM2, CH1, PA15, TIM_USE_BEEPER, 0, 0), // beeper
     DEF_TIM(TIM2, CH3, PA2,  TIM_USE_MOTOR, 0, 0), // sonar echo if needed
     DEF_TIM(TIM2, CH4, PA3,  TIM_USE_ANY,   0, 0), // any
 

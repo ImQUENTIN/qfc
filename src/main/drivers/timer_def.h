@@ -378,6 +378,7 @@
 
 #elif defined(STM32F4)
 
+#if defined(USE_DSHOT) || defined(USE_LED_STRIP) || defined(USE_TRANSPONDER)
 #define DEF_TIM(tim, chan, pin, flags, out, dmaopt) {           \
     tim,                                                        \
     IO_TAG(pin),                                                \
@@ -398,6 +399,18 @@
 }                                                               \
 /**/
 
+#else
+#define DEF_TIM(tim, chan, pin, flags, out, dmaopt) {           \
+    tim,                                                        \
+    IO_TAG(pin),                                                \
+    DEF_TIM_CHANNEL(CH_ ## chan),                               \
+    flags,                                                      \
+    (DEF_TIM_OUTPUT(CH_ ## chan) | out),                        \
+    DEF_TIM_AF(TIM_ ## tim),                                    \
+    }
+    /**/
+
+#endif
 #define DEF_TIM_CHANNEL(ch)                   CONCAT(DEF_TIM_CHANNEL__, DEF_TIM_CH_GET(ch))
 #define DEF_TIM_CHANNEL__D(chan_n, n_channel) TIM_Channel_ ## chan_n
 

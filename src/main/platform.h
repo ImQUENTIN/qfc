@@ -38,6 +38,7 @@
 #error "Invalid chipset specified. Update platform.h"
 #endif
 
+#define FLASH_SIZE 2048
 
 #ifdef USE_OSD_SLAVE
 #include "target/common_osd_slave.h"

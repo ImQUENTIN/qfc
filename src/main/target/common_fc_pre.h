@@ -37,12 +37,12 @@
 #endif
 
 #ifdef STM32F4
-#define USE_DSHOT
-#define USE_ESC_SENSOR
+//#define USE_DSHOT
+//#define USE_ESC_SENSOR
 #define I2C3_OVERCLOCK true
 //#define USE_GYRO_DATA_ANALYSE
 #define USE_ADC
-#define USE_ADC_INTERNAL
+#define USE_ADC_INTERNAL	// 使用内部AD
 
 #if defined(STM32F40_41xxx) || defined(STM32F411xE)
 #define USE_OVERCLOCK
@@ -53,13 +53,13 @@
 #ifdef STM32F722xx
 #define USE_ITCM_RAM
 #endif
-#ifdef STM32F7
-#define USE_DSHOT
-#define USE_ESC_SENSOR
-#define I2C3_OVERCLOCK true
-#define I2C4_OVERCLOCK true
-#define USE_GYRO_DATA_ANALYSE
-#endif
+//#ifdef STM32F7
+//#define USE_DSHOT
+//#define USE_ESC_SENSOR
+//#define I2C3_OVERCLOCK true
+//#define I2C4_OVERCLOCK true
+//#define USE_GYRO_DATA_ANALYSE
+//#endif
 
 #if defined(STM32F4) || defined(STM32F7)
 #define TASK_GYROPID_DESIRED_PERIOD     125 // 125us = 8kHz
@@ -111,43 +111,49 @@
 #endif
 
 #if (FLASH_SIZE > 64)
-#define USE_BLACKBOX
+//#define USE_BLACKBOX
 //#define USE_LED_STRIP
 #define USE_RESOURCE_MGMT
 #define USE_RUNAWAY_TAKEOFF     // Runaway Takeoff Prevention (anti-taz)
 //#define USE_SERVOS
-#define USE_TELEMETRY
-#define USE_TELEMETRY_FRSKY_HUB
-#define USE_TELEMETRY_HOTT
-#define USE_TELEMETRY_LTM
-#define USE_TELEMETRY_SMARTPORT
+
+
+//#define USE_TELEMETRY
+//#define USE_TELEMETRY_FRSKY_HUB
+//#define USE_TELEMETRY_HOTT
+//#define USE_TELEMETRY_LTM
+//#define USE_TELEMETRY_SMARTPORT
+
 #endif
 
 #if (FLASH_SIZE > 128)
-#define USE_CAMERA_CONTROL
-#define USE_CMS
-#define USE_COPY_PROFILE_CMS_MENU
-#define USE_DSHOT_DMAR
+//#define USE_CAMERA_CONTROL
+//#define USE_CMS
+//#define USE_COPY_PROFILE_CMS_MENU
+//#define USE_DSHOT_DMAR
 #define USE_GYRO_OVERFLOW_CHECK
-#define USE_HUFFMAN
-#define USE_MSP_DISPLAYPORT
+//#define USE_HUFFMAN
+//#define USE_MSP_DISPLAYPORT
 #define USE_MSP_OVER_TELEMETRY
 //#define USE_OSD
 //#define USE_OSD_OVER_MSP_DISPLAYPORT
-#define USE_PINIO
-#define USE_PINIOBOX
-#define USE_RCDEVICE
+
+
+//#define USE_PINIO
+//#define USE_PINIOBOX
+//#define USE_RCDEVICE
 #define USE_RTC_TIME
 //#define USE_RX_MSP
 //#define USE_SERIALRX_FPORT      // FrSky FPort
-#define USE_TELEMETRY_CRSF
-#define USE_TELEMETRY_SRXL
-#define USE_VIRTUAL_CURRENT_METER
-#define USE_OSD_ITEM_POSITIONS
-#define USE_VTX_COMMON
-#define USE_VTX_CONTROL
-#define USE_VTX_SMARTAUDIO
-#define USE_VTX_TRAMP
+//#define USE_TELEMETRY_CRSF
+//#define USE_TELEMETRY_SRXL
+//#define USE_VIRTUAL_CURRENT_METER
+//#define USE_OSD_ITEM_POSITIONS
+//#define USE_VTX_COMMON
+//#define USE_VTX_CONTROL
+//#define USE_VTX_SMARTAUDIO
+//#define USE_VTX_TRAMP
+
 #define USE_GYRO_BIQUAD_RC_FIR2
 
 #ifdef USE_SERIALRX_SPEKTRUM
@@ -172,11 +178,14 @@
 #define USE_OSD_ADJUSTMENTS
 #define USE_SENSOR_NAMES
 //#define USE_SERIALRX_JETIEXBUS
-#define USE_TELEMETRY_IBUS
-#define USE_TELEMETRY_IBUS_EXTENDED
-#define USE_TELEMETRY_JETIEXBUS
+
+
+//#define USE_TELEMETRY_IBUS
+//#define USE_TELEMETRY_IBUS_EXTENDED
+//#define USE_TELEMETRY_JETIEXBUS
+
 #define USE_TELEMETRY_MAVLINK
-#define USE_UNCOMMON_MIXERS
+//#define USE_UNCOMMON_MIXERS
 #endif
 
 #define USE_RCSPLIT
