@@ -275,7 +275,7 @@ void mspSerialProcess(mspEvaluateNonMspData_e evaluateNonMspData, mspProcessComm
             while (serialRxBytesWaiting(mspPort->port)) {
                 const uint8_t c = serialRead(mspPort->port);
                 const bool consumed = mspSerialProcessReceivedData(mspPort, c);
-
+                // 不是msp的有效数据
                 if (!consumed && evaluateNonMspData == MSP_EVALUATE_NON_MSP_DATA) {
                     mspEvaluateNonMspData(mspPort, c);
                 }
