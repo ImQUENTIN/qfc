@@ -1101,6 +1101,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>barometer</GroupName>
+          <Files>
+            <File>
+              <FileName>barometer_bmp280.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\barometer\barometer_bmp280.c</FilePath>
+            </File>
+            <File>
+              <FileName>barometer_ms5611.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\main\drivers\barometer\barometer_ms5611.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>

@@ -298,7 +298,7 @@ void init(void)
 //#endif
 
 
-    initEEPROM();     // do nothing
+    //initEEPROM();     // do nothing
     ensureEEPROMContainsValidData();    // use reset func
     readEEPROM();       // use partial except eeprom
 
@@ -427,7 +427,7 @@ void init(void)
      * receiver may share timer with motors so motors MUST be initialized here. */
     motorDevInit(&motorConfig()->dev, idlePulse, getMotorCount());
     systemState |= SYSTEM_STATE_MOTORS_READY;
-
+    
     if (0) {}
 #if defined(USE_PPM)
     else if (feature(FEATURE_RX_PPM)) {

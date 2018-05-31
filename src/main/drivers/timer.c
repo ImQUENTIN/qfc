@@ -316,7 +316,7 @@ void configTimeBase(TIM_TypeDef *tim, uint16_t period, uint32_t hz)
 void timerConfigure(const timerHardware_t *timerHardwarePtr, uint16_t period, uint32_t hz)
 {
     configTimeBase(timerHardwarePtr->tim, period, hz);
-//    TIM_Cmd(timerHardwarePtr->tim, ENABLE);
+    TIM_Cmd(timerHardwarePtr->tim, ENABLE);
 
     uint8_t irq = timerInputIrq(timerHardwarePtr->tim);
     timerNVICConfigure(irq);
@@ -424,7 +424,7 @@ void timerChConfigCallbacks(const timerHardware_t *timHw, timerCCHandlerRec_t *e
     if (edgeCallback)
         TIM_ITConfig(timHw->tim, TIM_IT_CCx(timHw->channel), ENABLE);
 
-//    timerChConfig_UpdateOverflow(&timerConfig[timerIndex], timHw->tim);
+    timerChConfig_UpdateOverflow(&timerConfig[timerIndex], timHw->tim);
 }
 
 // configure callbacks for pair of channels (1+2 or 3+4).
@@ -608,7 +608,7 @@ static void timCCxHandler(TIM_TypeDef *tim, timerConfig_t *timerConfig)
 {
     uint16_t capture;
     unsigned tim_status;
-    tim_status = tim->SR;// & tim->DIER;
+    tim_status = tim->SR & tim->DIER;
 #if 0
     while (tim_status) {
         // flags will be cleared by reading CCR in dual capture, make sure we call handler correctly

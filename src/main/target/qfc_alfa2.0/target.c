@@ -16,16 +16,25 @@
 #include "timer_def.h"
 
 const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {    
+   
+#if 1
+    // 硬件问题：把TXS0108E芯片拿掉直接短接，受到影响的有：
+    // RC5(F1)~RC8(F4), SBUS_OUT, UART3_RX/TX, PPM_INPUT
+    DEF_TIM(TIM4, CH1, PD12, TIM_USE_PWM,   0, 0), // S1_IN, PITCH
+    DEF_TIM(TIM4, CH2, PD13, TIM_USE_PWM,   0, 0), // S2_IN, R0LL
+    DEF_TIM(TIM4, CH3, PD14, TIM_USE_PWM,   0, 0), // S3_IN, THRO        
+    DEF_TIM(TIM4, CH4, PD15, TIM_USE_PWM,   0, 0), // S4_IN, YAW 
+#else
     DEF_TIM(TIM3, CH1, PB4,  TIM_USE_PWM,   0, 0), // S1_IN, PITCH
     DEF_TIM(TIM3, CH2, PB5,  TIM_USE_PWM,   0, 0), // S2_IN, R0LL
     DEF_TIM(TIM3, CH4, PB1,  TIM_USE_PWM,   0, 0), // S3_IN, THRO
-    DEF_TIM(TIM3, CH3, PB0,  TIM_USE_PWM,   0, 0), // S4_IN, YAW    
+    DEF_TIM(TIM3, CH3, PB0,  TIM_USE_PWM,   0, 0), // S4_IN, YAW 
 
-    DEF_TIM(TIM4, CH4, PD15, TIM_USE_PWM,   0, 0), // S5_IN
-    DEF_TIM(TIM4, CH3, PD14, TIM_USE_PWM,   0, 0), // S6_IN
-    DEF_TIM(TIM4, CH2, PD13, TIM_USE_PWM,   0, 0), // S7_IN
-    DEF_TIM(TIM4, CH1, PD12, TIM_USE_PWM,   0, 0), // S8_IN
-
+    DEF_TIM(TIM4, CH1, PD12, TIM_USE_MOTOR,   0, 0), // S5_IN
+    DEF_TIM(TIM4, CH2, PD13, TIM_USE_MOTOR,   0, 0), // S6_IN
+    DEF_TIM(TIM4, CH3, PD14, TIM_USE_MOTOR,   0, 0), // S7_IN        
+    DEF_TIM(TIM4, CH4, PD15, TIM_USE_MOTOR,   0, 0), // S8_IN
+#endif
     DEF_TIM(TIM1, CH1, PE9,  TIM_USE_MOTOR, 0, 0), // S5_OUT
     DEF_TIM(TIM1, CH2, PE11, TIM_USE_MOTOR, 0, 0), // S6_OUT
     DEF_TIM(TIM1, CH3, PE13, TIM_USE_MOTOR, 0, 0), // S7_OUT
@@ -95,8 +104,6 @@ void targetConfiguration(void)
 
     failsafeConfigMutable()->failsafe_delay = 2;
     failsafeConfigMutable()->failsafe_off_delay = 0;
-
-    motorConfigMutable()->dev.motorPwmRate = 17000;
 
     gyroConfigMutable()->gyro_sync_denom = 4;
     pidConfigMutable()->pid_process_denom = 1;

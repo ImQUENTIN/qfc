@@ -84,12 +84,21 @@ void pgResetFn_motorConfig(motorConfig_t *motorConfig)
         motorConfig->dev.useUnsyncedPwm = true;
     } else
 #endif
+#ifndef QFC
     {
         motorConfig->minthrottle = 1070;
         motorConfig->dev.motorPwmRate = BRUSHLESS_MOTORS_PWM_RATE;
         motorConfig->dev.motorPwmProtocol = PWM_TYPE_ONESHOT125;
-        motorConfig->dev.useUnsyncedPwm = true;     // add by q
     }
+#else
+    {
+        motorConfig->minthrottle = 1070;
+        motorConfig->dev.motorPwmRate = BRUSHLESS_MOTORS_PWM_RATE;
+        motorConfig->dev.motorPwmProtocol = PWM_TYPE_STANDARD;
+        motorConfig->dev.useUnsyncedPwm = true;
+    }
+#endif
+    
 #endif
     motorConfig->maxthrottle = 2000;
     motorConfig->mincommand = 1000;

@@ -386,7 +386,8 @@ void pwmRxInit(const pwmConfig_t *pwmConfig)
 #ifdef STM32F1
         IOConfigGPIO(io, IOCFG_IPD);
 #else
-        IOConfigGPIOAF(io, IOCFG_AF_PP, timer->alternateFunction);
+        IOConfigGPIOAF(io, IOCFG_AF_PP_PD, timer->alternateFunction);
+//                IOConfigGPIOAF(io, IOCFG_AF_PP, timer->alternateFunction);
 #endif
         timerConfigure(timer, (uint16_t)PWM_TIMER_PERIOD, PWM_TIMER_1MHZ);
         timerChCCHandlerInit(&port->edgeCb, pwmEdgeCallback);
