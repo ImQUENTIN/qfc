@@ -212,16 +212,16 @@ void fcTasksInit(void)
     setTaskEnabled(TASK_SERIAL, true);
     rescheduleTask(TASK_SERIAL, TASK_PERIOD_HZ(serialConfig()->serial_update_rate_hz));
 
-    const bool useBatteryVoltage = batteryConfig()->voltageMeterSource != VOLTAGE_METER_NONE;
-    setTaskEnabled(TASK_BATTERY_VOLTAGE, useBatteryVoltage);
-    const bool useBatteryCurrent = batteryConfig()->currentMeterSource != CURRENT_METER_NONE;
-    setTaskEnabled(TASK_BATTERY_CURRENT, useBatteryCurrent);
-#ifdef USE_OSD_SLAVE
-    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts;
-#else
-    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts || feature(FEATURE_OSD);
-#endif
-    setTaskEnabled(TASK_BATTERY_ALERTS, (useBatteryVoltage || useBatteryCurrent) && useBatteryAlerts);
+//    const bool useBatteryVoltage = batteryConfig()->voltageMeterSource != VOLTAGE_METER_NONE;
+//    setTaskEnabled(TASK_BATTERY_VOLTAGE, useBatteryVoltage);
+//    const bool useBatteryCurrent = batteryConfig()->currentMeterSource != CURRENT_METER_NONE;
+//    setTaskEnabled(TASK_BATTERY_CURRENT, useBatteryCurrent);
+//#ifdef USE_OSD_SLAVE
+//    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts;
+//#else
+//    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts || feature(FEATURE_OSD);
+//#endif
+//    setTaskEnabled(TASK_BATTERY_ALERTS, (useBatteryVoltage || useBatteryCurrent) && useBatteryAlerts);
 
 #ifdef USE_TRANSPONDER
     setTaskEnabled(TASK_TRANSPONDER, feature(FEATURE_TRANSPONDER));
@@ -328,14 +328,14 @@ cfTask_t cfTasks[TASK_COUNT] = {
 	
     [TASK_SYSTEM] = {
         .taskName = "SYSTEM",
-        .taskFunc = taskSystem,	// 计算占用率
+        .taskFunc = taskSystem,                     // 计算占用率
         .desiredPeriod = TASK_PERIOD_HZ(10),        // 10Hz, every 100 ms
         .staticPriority = TASK_PRIORITY_MEDIUM_HIGH,
     },
 
     [TASK_SERIAL] = {
         .taskName = "SERIAL",
-        .taskFunc = taskHandleSerial,	// msp串口接收字符处理：多种协议的命令解析
+        .taskFunc = taskHandleSerial,               // msp串口接收字符处理：多种协议的命令解析
 #ifdef USE_OSD_SLAVE
         .checkFunc = taskSerialCheck,
         .desiredPeriod = TASK_PERIOD_HZ(100),
@@ -399,7 +399,8 @@ cfTask_t cfTasks[TASK_COUNT] = {
         .taskName = "PID",
         .subTaskName = "GYRO",
         .taskFunc = taskMainPidLoop,
-        .desiredPeriod = TASK_GYROPID_DESIRED_PERIOD,
+        .desiredPeriod = TASK_PERIOD_HZ(1000),//TASK_GYROPID_DESIRED_PERIOD,
+//        .staticPriority = TASK_PRIORITY_HIGH,
         .staticPriority = TASK_PRIORITY_REALTIME,
     },
 

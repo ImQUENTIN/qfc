@@ -33,6 +33,7 @@
 
 #define LED0_PIN                PD4
 #define LED1_PIN                PD7
+#define LED2_PIN                PC15
 
 
 #define BEEPER                  PA15    // 使用beeper
@@ -52,48 +53,55 @@
 #define SPI4_MOSI_PIN           PE6
 
 
-#define USE_ACC
-#define USE_FAKE_ACC
-#define USE_ACC_SPI_MPU6000
-#define ACC_MPU6000_ALIGN       CW270_DEG
-#define USE_ACC_SPI_MPU9250
-
-
 #define USE_GYRO
-#define USE_FAKE_GYRO
-#define USE_GYRO_SPI_MPU6000
-#define GYRO_MPU6000_ALIGN      CW270_DEG
+//#define USE_FAKE_GYRO
+//#define USE_GYRO_SPI_MPU6000
+//#define GYRO_MPU6000_ALIGN      CW270_DEG
 #define USE_GYRO_SPI_MPU9250
-
-#define MPU6000_CS_PIN          PD11
-#define MPU6000_SPI_INSTANCE    SPI1
-
-#define MPU9250_CS_PIN          PC13    // GPIO_1
-#define MPU9250_SPI_INSTANCE    SPI2
-
-// MPU interrupt, 没有使用Ready信号
-//#define USE_EXTI
-//#define MPU_INT_EXTI            PC14
-//#define DEBUG_MPU_DATA_READY_INTERRUPT
-//#define USE_MPU_DATA_READY_SIGNAL
-//#define ENSURE_MPU_DATA_READY_IS_LOW
+#define GYRO_MPU9250_ALIGN        CW0_DEG_FLIP      //   
+//#define USE_GYRO_SPI_ADIS16405
 
 
-#define USE_MAG
-#define USE_FAKE_MAG
+#define USE_ACC
+//#define USE_FAKE_ACC
+//#define USE_ACC_SPI_MPU6000
+//#define ACC_MPU6000_ALIGN       CW270_DEG
+#define USE_ACC_SPI_MPU9250
+#define ACC_MPU9250_ALIGN         CW0_DEG_FLIP
+//#define USE_ACC_SPI_ADIS16405
+
+#undef USE_MAG
+//#define USE_MAG
+//#define USE_FAKE_MAG
 //#define USE_MAG_AK8963
 //#define USE_MAG_AK8975
 //#define USE_MAG_HMC5883
 //#define USE_MAG_QMC5883
-//
 //#define MAG_AK8963_ALIGN        CW180_DEG_FLIP
+//#define USE_MAG_SPI_ADIS16405
+
+
+//#define MPU6000_CS_PIN          PD11
+//#define MPU6000_SPI_INSTANCE    SPI1
+#define MPU9250_CS_PIN          PE1    
+#define MPU9250_SPI_INSTANCE    SPI4
+
+//#define ADIS16405_CS_PIN          PE1
+//#define ADIS16405_SPI_INSTANCE    SPI4
+
+
+
 
 #define USE_BARO
-#define USE_FAKE_BARO
+//#define USE_FAKE_BARO
 //#define USE_BARO_BMP085
-#define USE_BARO_BMP280
-#define USE_BARO_MS5611
-
+#define USE_BARO_SPI_BMP280
+//#define USE_BARO_MS5611
+//#define USE_BARO_SPI_MS5611
+//#define MS5611_CS_PIN               PD10
+//#define MS5611_SPI_INSTANCE         SPI1
+#define BMP280_SPI_INSTANCE             SPI4
+#define BMP280_CS_PIN                   PC13
 //#define USE_MAX7456
 //#define MAX7456_SPI_INSTANCE    SPI2
 //#define MAX7456_SPI_CS_PIN      SPI2_NSS_PIN
@@ -203,8 +211,8 @@
 * @note    ADC
 ************************************************************************************************/
 #define USE_ADC
-#define ADC_INSTANCE            ADC1
-    //#define ADC_INSTANCE            ADC2
+//#define ADC_INSTANCE            ADC1
+//#define ADC_INSTANCE            ADC2
     
 #define VBAT_ADC_PIN            PC0
 #define CURRENT_METER_ADC_PIN   PC1
@@ -222,7 +230,7 @@
 #define SONAR_ECHO_PIN                      PA2
 
 // 测距仪
-#define USE_RANGEFINDER
+//#define USE_RANGEFINDER
 #define USE_RANGEFINDER_HCSR04
 #define RANGEFINDER_HCSR04_TRIGGER_PIN       PA4
 #define RANGEFINDER_HCSR04_ECHO_PIN          PA2

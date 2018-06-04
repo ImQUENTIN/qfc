@@ -234,6 +234,7 @@ FAST_CODE void scheduler(void)
     bool outsideRealtimeGuardInterval = true;
     for (const cfTask_t *task = queueFirst(); task != NULL && task->staticPriority >= TASK_PRIORITY_REALTIME; task = queueNext()) {
         const timeUs_t nextExecuteAt = task->lastExecutedAt + task->desiredPeriod;
+        
         if ((timeDelta_t)(currentTimeUs - nextExecuteAt) >= 0) {
             outsideRealtimeGuardInterval = false;
             break;
@@ -282,6 +283,7 @@ FAST_CODE void scheduler(void)
             // Task is time-driven, dynamicPriority is last execution age (measured in desiredPeriods)
             // Task age is calculated from last execution
             task->taskAgeCycles = ((currentTimeUs - task->lastExecutedAt) / task->desiredPeriod);
+
             if (task->taskAgeCycles > 0) {
                 task->dynamicPriority = 1 + task->staticPriority * task->taskAgeCycles;
                 waitingTasks++;
@@ -293,6 +295,7 @@ FAST_CODE void scheduler(void)
                 (outsideRealtimeGuardInterval) ||
                 (task->taskAgeCycles > 1) ||
                 (task->staticPriority == TASK_PRIORITY_REALTIME);
+            
             if (taskCanBeChosenForScheduling) {
                 selectedTaskDynamicPriority = task->dynamicPriority;
                 selectedTask = task;
@@ -300,8 +303,8 @@ FAST_CODE void scheduler(void)
         }
     }
 
-    totalWaitingTasksSamples++;
-    totalWaitingTasks += waitingTasks;
+    totalWaitingTasksSamples++;         // 会在任务统计执行后清零
+    totalWaitingTasks += waitingTasks;  // 会在任务统计执行后清零
 
     currentTask = selectedTask;
 
@@ -317,8 +320,11 @@ FAST_CODE void scheduler(void)
 #else
         if (calculateTaskStatistics) {
             const timeUs_t currentTimeBeforeTaskCall = micros();
+            // 执行任务
             selectedTask->taskFunc(currentTimeBeforeTaskCall);
+        
             const timeUs_t taskExecutionTime = micros() - currentTimeBeforeTaskCall;
+            // 任务统计相关：
             selectedTask->movingSumExecutionTime += taskExecutionTime - selectedTask->movingSumExecutionTime / MOVING_SUM_COUNT;
             selectedTask->totalExecutionTime += taskExecutionTime;   // time consumed by scheduler + task
             selectedTask->maxExecutionTime = MAX(selectedTask->maxExecutionTime, taskExecutionTime);

@@ -120,8 +120,9 @@ float applyRaceFlightRates(const int axis, float rcCommandf, const float rcComma
 static void calculateSetpointRate(int axis)
 {
     // scale rcCommandf to range [-1.0, 1.0]
-    float rcCommandf = rcCommand[axis] / 500.0f;
+    float rcCommandf = rcCommand[axis] / 500.0f;    // interval [1000;2000] for THROTTLE and [-500;+500] for ROLL/PITCH/YAW
     rcDeflection[axis] = rcCommandf;
+    
     const float rcCommandfAbs = ABS(rcCommandf);
     rcDeflectionAbs[axis] = rcCommandfAbs;
 

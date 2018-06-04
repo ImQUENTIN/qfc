@@ -101,7 +101,7 @@ void gyroDataAnalyseInit(uint32_t targetLooptimeUs)
     arm_rfft_fast_init_f32(&fftInstance, FFT_WINDOW_SIZE);
 
     initGyroData();
-    initHanning();
+    initHanning();          // hanningWindow, 加窗滤波
 
     // recalculation of filters takes 4 calls per axis => each filter gets updated every 3 * 4 = 12 calls
     // at 4khz gyro loop rate this means 4khz / 4 / 3 = 333Hz => update every 3ms

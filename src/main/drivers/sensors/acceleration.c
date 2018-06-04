@@ -216,6 +216,18 @@ retry:
         FALLTHROUGH;
 #endif
 
+#ifdef USE_ACC_SPI_ADIS16405
+        case ACC_ADIS16405:
+            if (adis16405SpiAccDetect(dev)) {
+#ifdef ACC_ADIS16405_ALIGN
+                dev->accAlign = ACC_ADIS16405_ALIGN;
+#endif
+                accHardware = ACC_ADIS16405;
+                break;
+            }
+            FALLTHROUGH;
+#endif
+
     case ACC_MPU6500:
     case ACC_ICM20601:
     case ACC_ICM20602:

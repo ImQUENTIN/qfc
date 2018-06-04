@@ -363,7 +363,7 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--c99 -O1 -g -W</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER, USE_FULL_ASSERT</Define>
+              <Define>USE_STDPERIPH_DRIVER, USE_FULL_ASSERT, HSE_VALUE=24000000</Define>
               <Undefine></Undefine>
               <IncludePath>.\src\lib\STM32F4xx_StdPeriph_Driver\CMSIS\Include;.\src\lib\STM32F4xx_StdPeriph_Driver\inc;.\src\main;.\src\main\target\qfc_alfa2.0;.\src\main\build;.\src\main\common;.\src\main\config;.\src\main\drivers;.\src\main\apps;.\src\lib\MAVLink</IncludePath>
             </VariousControls>

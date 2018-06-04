@@ -776,6 +776,7 @@ static void subTaskPidController(timeUs_t currentTimeUs)
 {
     uint32_t startTime = 0;
     if (debugMode == DEBUG_PIDLOOP) {startTime = micros();}
+
     // PID - note this is function pointer set by setPIDController()
     pidController(currentPidProfile, &accelerometerConfig()->accelerometerTrims, currentTimeUs);
     DEBUG_SET(DEBUG_PIDLOOP, 1, micros() - startTime);

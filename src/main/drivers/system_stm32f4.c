@@ -160,7 +160,7 @@ void systemInit(void)
 {
     checkForBootLoaderRequest();
 
-    SetSysClock();
+//    SetSysClock();
 
     // Configure NVIC preempt/priority groups
     NVIC_PriorityGroupConfig(NVIC_PRIORITY_GROUPING);

@@ -284,7 +284,7 @@ STATIC_UNIT_TESTED gyroSensor_e gyroDetect(gyroDev_t *dev)
 
 #ifdef USE_GYRO_SPI_MPU6000
     case GYRO_MPU6000:
-        if (mpu6000SpiGyroDetect(dev)) {
+        if (mpu6000SpiGyroDetect(dev)) {    // be here, q.
             gyroHardware = GYRO_MPU6000;
 #ifdef GYRO_MPU6000_ALIGN
             dev->gyroAlign = GYRO_MPU6000_ALIGN;
@@ -385,6 +385,18 @@ STATIC_UNIT_TESTED gyroSensor_e gyroDetect(gyroDev_t *dev)
         FALLTHROUGH;
 #endif
 
+#ifdef USE_GYRO_SPI_ADIS16405
+        case GYRO_ADIS16405:
+            if (adis16405SpiGyroDetect(dev)) {
+                gyroHardware = GYRO_ADIS16405;
+#ifdef GYRO_ADIS16405_ALIGN
+                dev->gyroAlign = GYRO_ADIS16405_ALIGN;
+#endif
+                break;
+            }
+            FALLTHROUGH;
+#endif
+
     default:
         gyroHardware = GYRO_NONE;
     }
@@ -400,10 +412,11 @@ STATIC_UNIT_TESTED gyroSensor_e gyroDetect(gyroDev_t *dev)
 
 static bool gyroInitSensor(gyroSensor_t *gyroSensor)
 {
-    gyroSensor->gyroDev.gyro_high_fsr = gyroConfig()->gyro_high_fsr;
+    gyroSensor->gyroDev.gyro_high_fsr = gyroConfig()->gyro_high_fsr;    // false
 
 #if defined(USE_GYRO_MPU6050) || defined(USE_GYRO_MPU3050) || defined(USE_GYRO_MPU6500) || defined(USE_GYRO_SPI_MPU6500) || defined(USE_GYRO_SPI_MPU6000) \
- || defined(USE_ACC_MPU6050) || defined(USE_GYRO_SPI_MPU9250) || defined(USE_GYRO_SPI_ICM20601) || defined(USE_GYRO_SPI_ICM20649) || defined(USE_GYRO_SPI_ICM20689)
+ || defined(USE_ACC_MPU6050) || defined(USE_GYRO_SPI_MPU9250) || defined(USE_GYRO_SPI_ICM20601) || defined(USE_GYRO_SPI_ICM20649) || defined(USE_GYRO_SPI_ICM20689)\
+  || defined(USE_GYRO_SPI_ADIS16405)
 
     mpuDetect(&gyroSensor->gyroDev);
     mpuResetFn = gyroSensor->gyroDev.mpuConfiguration.resetFn; // must be set after mpuDetect
@@ -428,9 +441,9 @@ static bool gyroInitSensor(gyroSensor_t *gyroSensor)
         gyroConfigMutable()->gyro_use_32khz = false;
         break;
     }
-
+//////////////////////////// quentin ///////////////////////////////////////////
     // Must set gyro targetLooptime before gyroDev.init and initialisation of filters
-    gyro.targetLooptime = gyroSetSampleRate(&gyroSensor->gyroDev, gyroConfig()->gyro_lpf, gyroConfig()->gyro_sync_denom, gyroConfig()->gyro_use_32khz);
+     gyro.targetLooptime = gyroSetSampleRate(&gyroSensor->gyroDev, gyroConfig()->gyro_lpf, gyroConfig()->gyro_sync_denom, gyroConfig()->gyro_use_32khz);
     gyroSensor->gyroDev.lpf = gyroConfig()->gyro_lpf;
     gyroSensor->gyroDev.initFn(&gyroSensor->gyroDev);
     if (gyroConfig()->gyro_align != ALIGN_DEFAULT) {
@@ -444,7 +457,7 @@ static bool gyroInitSensor(gyroSensor_t *gyroSensor)
 #endif
     return true;
 }
-
+//////////////////////////// quentin_end ///////////////////////////////////////////
 bool gyroInit(void)
 {
 #ifdef USE_GYRO_OVERFLOW_CHECK
@@ -473,7 +486,7 @@ bool gyroInit(void)
 
     bool ret = false;
     memset(&gyro, 0, sizeof(gyro));
-    gyroToUse = gyroConfig()->gyro_to_use;
+    gyroToUse = gyroConfig()->gyro_to_use;      // gyro1
 
 #if defined(USE_DUAL_GYRO) && defined(GYRO_1_CS_PIN)
     if (gyroToUse == GYRO_CONFIG_USE_GYRO_1 || gyroToUse == GYRO_CONFIG_USE_GYRO_BOTH) {
@@ -495,15 +508,16 @@ bool gyroInit(void)
 
     gyroSensor1.gyroDev.gyroAlign = ALIGN_DEFAULT;
 
-#if defined(GYRO_1_EXTI_PIN)
-    gyroSensor1.gyroDev.mpuIntExtiTag =  IO_TAG(GYRO_1_EXTI_PIN);
-#elif defined(MPU_INT_EXTI)
-    gyroSensor1.gyroDev.mpuIntExtiTag =  IO_TAG(MPU_INT_EXTI);
-#elif defined(USE_HARDWARE_REVISION_DETECTION)
-    gyroSensor1.gyroDev.mpuIntExtiTag =  selectMPUIntExtiConfigByHardwareRevision();
-#else
-    gyroSensor1.gyroDev.mpuIntExtiTag =  IO_TAG_NONE;
-#endif // GYRO_1_EXTI_PIN
+//#if defined(GYRO_1_EXTI_PIN)
+//    gyroSensor1.gyroDev.mpuIntExtiTag =  IO_TAG(GYRO_1_EXTI_PIN);
+//#elif defined(MPU_INT_EXTI)
+//    gyroSensor1.gyroDev.mpuIntExtiTag =  IO_TAG(MPU_INT_EXTI);
+//#elif defined(USE_HARDWARE_REVISION_DETECTION)
+//    gyroSensor1.gyroDev.mpuIntExtiTag =  selectMPUIntExtiConfigByHardwareRevision();
+//#else
+//    gyroSensor1.gyroDev.mpuIntExtiTag =  IO_TAG_NONE;
+//#endif // GYRO_1_EXTI_PIN
+
 #ifdef USE_DUAL_GYRO
 #ifdef GYRO_1_ALIGN
     gyroSensor1.gyroDev.gyroAlign = GYRO_1_ALIGN;
@@ -685,14 +699,17 @@ static void gyroInitSensorFilters(gyroSensor_t *gyroSensor)
 #if defined(USE_GYRO_SLEW_LIMITER)
     gyroInitSlewLimiter(gyroSensor);
 #endif
+    
 #if defined(USE_GYRO_FAST_KALMAN)
     gyroInitFilterKalman(gyroSensor, gyroConfig()->gyro_filter_q, gyroConfig()->gyro_filter_r, gyroConfig()->gyro_filter_p);
 #elif defined(USE_GYRO_BIQUAD_RC_FIR2)
     gyroInitFilterBiquadRCFIR2(gyroSensor, gyroConfig()->gyro_soft_lpf_hz_2);
 #endif
+    
     gyroInitFilterLpf(gyroSensor, gyroConfig()->gyro_soft_lpf_hz);
     gyroInitFilterNotch1(gyroSensor, gyroConfig()->gyro_soft_notch_hz_1, gyroConfig()->gyro_soft_notch_cutoff_1);
     gyroInitFilterNotch2(gyroSensor, gyroConfig()->gyro_soft_notch_hz_2, gyroConfig()->gyro_soft_notch_cutoff_2);
+
 #ifdef USE_GYRO_DATA_ANALYSE
     gyroInitFilterDynamicNotch(gyroSensor);
 #endif

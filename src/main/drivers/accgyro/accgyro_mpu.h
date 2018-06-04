@@ -24,7 +24,7 @@
 //#define DEBUG_MPU_DATA_READY_INTERRUPT
 
 #if defined(USE_GYRO_SPI_MPU6500) || defined(USE_GYRO_SPI_MPU6000) ||  defined(USE_GYRO_SPI_MPU9250) || defined(USE_GYRO_SPI_ICM20649) \
- || defined(USE_GYRO_SPI_ICM20689)
+ || defined(USE_GYRO_SPI_ICM20689) || defined(USE_GYRO_SPI_ADIS16405)
 #define GYRO_USES_SPI
 #endif
 
@@ -194,6 +194,7 @@ typedef enum {
     ICM_20649_SPI,
     ICM_20689_SPI,
     BMI_160_SPI,
+    ADIS_16405_SPI,
 } mpuSensor_e;
 
 typedef enum {

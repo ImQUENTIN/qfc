@@ -64,14 +64,17 @@ void pgResetFn_barometerConfig(barometerConfig_t *barometerConfig)
 #else
 #define DEFAULT_BARO_BMP280
 #endif
+
 #elif defined(USE_BARO_MS5611) || defined(USE_BARO_SPI_MS5611)
 #if defined(USE_BARO_SPI_MS5611)
 #define DEFAULT_BARO_SPI_MS5611
 #else
 #define DEFAULT_BARO_MS5611
 #endif
+
 #elif defined(USE_BARO_SPI_LPS)
 #define DEFAULT_BARO_SPI_LPS
+
 #elif defined(DEFAULT_BARO_BMP085)
 #define DEFAULT_BARO_BMP085
 #endif
@@ -295,7 +298,7 @@ uint32_t baroUpdate(void)
 {
     static barometerState_e state = BAROMETER_NEEDS_SAMPLES;
 
-    switch (state) {
+     switch (state) {
         default:
         case BAROMETER_NEEDS_SAMPLES:
             baro.dev.get_ut(&baro.dev);

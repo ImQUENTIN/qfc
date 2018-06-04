@@ -49,6 +49,8 @@
 #include "drivers/accgyro/accgyro_spi_mpu6000.h"
 #include "drivers/accgyro/accgyro_spi_mpu6500.h"
 #include "drivers/accgyro/accgyro_spi_mpu9250.h"
+#include "drivers/accgyro/accgyro_spi_adis16405.h"
+
 #include "drivers/accgyro/accgyro_mpu.h"
 
 
@@ -219,6 +221,21 @@ static bool detectSPISensorsAndUpdateDetectionResult(gyroDev_t *gyro)
     sensor = mpu6000SpiDetect(&gyro->bus);
     if (sensor != MPU_NONE) {
         gyro->mpuDetectionResult.sensor = sensor;
+        return true;
+    }
+#endif
+
+#ifdef USE_GYRO_SPI_ADIS16405
+#ifndef USE_DUAL_GYRO
+    spiBusSetInstance(&gyro->bus, ADIS16405_SPI_INSTANCE);
+#endif
+#ifdef ADIS16405_CS_PIN
+    gyro->bus.busdev_u.spi.csnPin = gyro->bus.busdev_u.spi.csnPin == IO_NONE ? IOGetByTag(IO_TAG(ADIS16405_CS_PIN)) : gyro->bus.busdev_u.spi.csnPin;
+#endif
+    sensor = adis16405SpiDetect(&gyro->bus);
+    if (sensor != MPU_NONE) {
+        gyro->mpuDetectionResult.sensor = sensor;
+        gyro->mpuConfiguration.resetFn = adis16405SpiResetGyro;
         return true;
     }
 #endif

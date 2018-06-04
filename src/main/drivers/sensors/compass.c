@@ -29,6 +29,9 @@
 #include "drivers/bus_spi.h"
 #include "drivers/bus.h"
 #include "drivers/accgyro/accgyro_mpu.h"
+#include "drivers/accgyro/accgyro.h"
+#include "drivers/accgyro/accgyro_spi_adis16405.h"
+
 #include "drivers/compass/compass.h"
 #include "drivers/compass/compass_ak8975.h"
 #include "drivers/compass/compass_ak8963.h"
@@ -45,6 +48,7 @@
 #include "sensors/compass.h"
 #include "sensors/gyro.h"
 #include "sensors/sensors.h"
+
 
 #ifdef USE_HARDWARE_REVISION_DETECTION
 #include "hardware_revision.h"
@@ -73,11 +77,15 @@ void pgResetFn_compassConfig(compassConfig_t *compassConfig)
 // 2. I2C devices are will be handled by address = 0 (per device default).
 // 3. Slave I2C device on SPI gyro
 
-#if defined(USE_SPI) && (defined(USE_MAG_SPI_HMC5883) || defined(USE_MAG_SPI_AK8963))
+#if defined(USE_SPI) && (defined(USE_MAG_SPI_HMC5883) || defined(USE_MAG_SPI_AK8963) || defined(USE_MAG_SPI_ADIS16405))
     compassConfig->mag_bustype = BUSTYPE_SPI;
-#ifdef USE_MAG_SPI_HMC5883
+#if defined(USE_MAG_SPI_HMC5883) 
     compassConfig->mag_spi_device = SPI_DEV_TO_CFG(spiDeviceByInstance(HMC5883_SPI_INSTANCE));
     compassConfig->mag_spi_csn = IO_TAG(HMC5883_CS_PIN);
+#elif defined(USE_MAG_SPI_ADIS16405) 
+    compassConfig->mag_spi_device = SPI_DEV_TO_CFG(spiDeviceByInstance(ADIS16405_SPI_INSTANCE));
+    compassConfig->mag_spi_csn = IO_TAG(ADIS16405_CS_PIN);
+    compassConfig->mag_hardware = MAG_ADIS16405;
 #else
     compassConfig->mag_spi_device = SPI_DEV_TO_CFG(spiDeviceByInstance(AK8963_SPI_INSTANCE));
     compassConfig->mag_spi_csn = IO_TAG(AK8963_CS_PIN);
@@ -124,7 +132,7 @@ bool compassDetect(magDev_t *dev)
     dev->magIntExtiTag = compassConfig()->interruptTag;
 #endif
 
-    switch (compassConfig()->mag_bustype) {
+    switch (compassConfig()->mag_bustype) { // at L56
 #ifdef USE_I2C
     case BUSTYPE_I2C:
         busdev->bustype = BUSTYPE_I2C;
@@ -212,7 +220,7 @@ bool compassDetect(magDev_t *dev)
         }
 #endif
         FALLTHROUGH;
-
+    
     case MAG_AK8963:
 #if defined(USE_MAG_AK8963) || defined(USE_MAG_SPI_AK8963)
         if (busdev->bustype == BUSTYPE_I2C) {
@@ -233,6 +241,18 @@ bool compassDetect(magDev_t *dev)
         }
 #endif
         FALLTHROUGH;
+
+    case MAG_ADIS16405:
+#if defined(USE_MAG_SPI_ADIS16405) 
+        if (adis16405SPiMagDetect(dev)) {
+#ifdef MAG_ADIS16405_ALIGN
+            dev->magAlign = MAG_ADIS16405_ALIGN;
+#endif
+            magHardware = MAG_ADIS16405;
+            break;
+        }
+#endif
+    FALLTHROUGH;
 
     case MAG_NONE:
         magHardware = MAG_NONE;

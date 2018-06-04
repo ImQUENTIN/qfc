@@ -129,6 +129,8 @@ void processRcStickPositions()
 {
     // time the sticks are maintained
     static int16_t rcDelayMs;
+    static uint32_t rcDelayUs;
+    
     // hold sticks position for command combos
     static uint8_t rcSticks;
     // an extra guard for disarming through switch to prevent that one frame can disarm it
@@ -154,9 +156,12 @@ void processRcStickPositions()
     }
     if (stTmp == rcSticks) {
         if (rcDelayMs <= INT16_MAX - (getTaskDeltaTime(TASK_SELF) / 1000)) {
-            rcDelayMs += getTaskDeltaTime(TASK_SELF) / 1000;
+            rcDelayUs += getTaskDeltaTime(TASK_SELF);
+            rcDelayMs = rcDelayUs / 1000;
+//            rcDelayMs += getTaskDeltaTime(TASK_SELF) / 1000;
         }
     } else {
+        rcDelayUs = 0;
         rcDelayMs = 0;
         doNotRepeat = false;
     }
@@ -178,7 +183,8 @@ void processRcStickPositions()
                 }
             }
         }
-    } else if (rcSticks == THR_LO + YAW_LO + PIT_CE + ROL_CE) {
+    } 
+    else if (rcSticks == THR_LO + YAW_LO + PIT_CE + ROL_CE) {
         if (rcDelayMs >= ARM_DELAY_MS && !doNotRepeat) {
             doNotRepeat = true;
             // Disarm on throttle down + yaw
@@ -198,7 +204,8 @@ void processRcStickPositions()
             }
         }
         return;
-    } else if (rcSticks == THR_LO + YAW_HI + PIT_CE + ROL_CE) {
+    } 
+    else if (rcSticks == THR_LO + YAW_HI + PIT_CE + ROL_CE) {
         if (rcDelayMs >= ARM_DELAY_MS && !doNotRepeat) {
             doNotRepeat = true;
             if (!ARMING_FLAG(ARMED)) {

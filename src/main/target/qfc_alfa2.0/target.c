@@ -78,7 +78,7 @@ const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {
 void targetConfiguration(void)
 {
 
-    compassConfigMutable()->mag_hardware = MAG_NONE;            // disabled by default
+//  compassConfigMutable()->mag_hardware = MAG_NONE;            // disabled by default
 
     voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatscale = VBAT_SCALE;
     voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatresdivval = 15;
@@ -87,8 +87,8 @@ void targetConfiguration(void)
     batteryConfigMutable()->vbatmincellvoltage = 32;
     batteryConfigMutable()->vbatwarningcellvoltage = 33;
 
-    rxConfigMutable()->spektrum_sat_bind = 5;
-    rxConfigMutable()->spektrum_sat_bind_autoreset = 1;
+//    rxConfigMutable()->spektrum_sat_bind = 5;
+//    rxConfigMutable()->spektrum_sat_bind_autoreset = 1;
 
     rcControlsConfigMutable()->yaw_deadband = 2;
     rcControlsConfigMutable()->deadband = 2;

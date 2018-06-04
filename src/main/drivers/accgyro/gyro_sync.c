@@ -45,6 +45,10 @@ uint32_t gyroSetSampleRate(gyroDev_t *gyro, uint8_t lpf, uint8_t gyroSyncDenomin
                 gyro->gyroRateKHz = GYRO_RATE_9_kHz;
                 gyroSamplePeriod = 1000000.0f / 9000.0f;
                 break;
+            case ADIS_16405_SPI:
+                gyro->gyroRateKHz = GYRO_RATE_1_kHz;
+                gyroSamplePeriod = 1000.0f;
+                break;
             default:
                 gyro->gyroRateKHz = GYRO_RATE_8_kHz;
                 gyroSamplePeriod = 125.0f;

@@ -40,9 +40,9 @@
 //#define USE_DSHOT
 //#define USE_ESC_SENSOR
 #define I2C3_OVERCLOCK true
-//#define USE_GYRO_DATA_ANALYSE
+//#define USE_GYRO_DATA_ANALYSE       // 需要增加 FEATURE_DYNAMIC_FILTER
 #define USE_ADC
-#define USE_ADC_INTERNAL	// 使用内部AD
+//#define USE_ADC_INTERNAL	
 
 #if defined(STM32F40_41xxx) || defined(STM32F411xE)
 #define USE_OVERCLOCK
@@ -50,9 +50,9 @@
 
 #endif // STM32F4
 
-#ifdef STM32F722xx
-#define USE_ITCM_RAM
-#endif
+//#ifdef STM32F722xx
+//#define USE_ITCM_RAM
+//#endif
 //#ifdef STM32F7
 //#define USE_DSHOT
 //#define USE_ESC_SENSOR
@@ -154,7 +154,7 @@
 //#define USE_VTX_SMARTAUDIO
 //#define USE_VTX_TRAMP
 
-#define USE_GYRO_BIQUAD_RC_FIR2
+#define USE_GYRO_BIQUAD_RC_FIR2     // 除此之外，还有 USE_GYRO_FAST_KALMAN， 滤波方法
 
 #ifdef USE_SERIALRX_SPEKTRUM
 #define USE_SPEKTRUM_BIND
@@ -171,11 +171,11 @@
 #if (FLASH_SIZE > 256)
 #define USE_ALT_HOLD
 //#define USE_DASHBOARD
-#define USE_GPS
-#define USE_GPS_NMEA
-#define USE_GPS_UBLOX
-#define USE_NAV
-#define USE_OSD_ADJUSTMENTS
+//#define USE_GPS
+//#define USE_GPS_NMEA
+//#define USE_GPS_UBLOX
+//#define USE_NAV
+//#define USE_OSD_ADJUSTMENTS
 #define USE_SENSOR_NAMES
 //#define USE_SERIALRX_JETIEXBUS
 

@@ -250,22 +250,54 @@ void spiPreInit(void)
 }
 #endif
 
-void mytest(void)
-{
-    #if 0
-    IO_t pin1 = IOGetByTag(IO_TAG(PB6));
-    IO_t pin2 = IOGetByTag(IO_TAG(PB7));
-    
-    
-    IOConfigGPIO(pin1, IOCFG_OUT_PP);
-    IOConfigGPIO(pin2, IOCFG_OUT_PP);
-    
-    IOWrite(pin1, 1);
-    IOWrite(pin2, 0);
+//void mytest(void)
+//{
+//    #if 0
+//    IO_t pin1 = IOGetByTag(IO_TAG(PB6));
+//    IO_t pin2 = IOGetByTag(IO_TAG(PB7));
+//    
+//    
+//    IOConfigGPIO(pin1, IOCFG_OUT_PP);
+//    IOConfigGPIO(pin2, IOCFG_OUT_PP);
+//    
+//    IOWrite(pin1, 1);
+//    IOWrite(pin2, 0);
 
-    while(1);
-#endif
-}
+//    while(1);
+//#endif
+//}
+//void System_Clk_Output_Init()
+//{
+//    GPIO_InitTypeDef GPIO_InitStructure;
+
+//    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC,ENABLE);//使能GPIOC的时钟
+
+//    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; //选择管脚号
+//    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; //设置管脚的速度
+//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF; //设置管脚位复用功能
+//    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//设置管脚位推完输出
+//    GPIO_Init(GPIOC, &GPIO_InitStructure); //初始化管脚
+
+//    GPIO_PinAFConfig(GPIOC,GPIO_PinSource9,GPIO_AF_MCO);//打开GPIOC_Pin_9的MCO功能
+//    RCC_MCO2Config(RCC_MCO2Source_SYSCLK,RCC_MCO2Div_2);//设置GPIOC_Pin_9输出系统时钟频率的二分频
+//}        
+
+//void HSE_Clk_Output_Init()
+//{
+//    GPIO_InitTypeDef GPIO_InitStructure;
+
+//    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);//使能GPIOA的时钟
+
+//    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; //选择管脚号
+//    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;// 设置管脚的速度为100M
+//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF; //设置管脚位复用功能
+//    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//设置管脚位推完输出
+//    GPIO_Init(GPIOC, &GPIO_InitStructure); //初始化管脚
+
+//    GPIO_PinAFConfig(GPIOC,GPIO_PinSource9,GPIO_AF_MCO);//打开GPIOA_Pin_9的MCO功能
+//    RCC_MCO1Config(RCC_MCO2Source_HSE, RCC_MCO2Div_1);//设置GPIOA_Pin_8输出外部高速晶振HSE的频率
+
+//} 
 void init(void)
 {
 //#ifdef USE_ITCM_RAM
@@ -333,7 +365,13 @@ void init(void)
     LED1_ON;
     LED2_ON;
 
-    mytest();
+  //  System_Clk_Output_Init();
+//    HSE_Clk_Output_Init();
+//    while(1)    
+//        {
+////        GPIOC->ODR ^= GPIO_Pin_15;
+//        }
+//    mytest();
 #ifdef USE_EXTI
     EXTIInit();
 #endif
@@ -493,31 +531,31 @@ void init(void)
 
 #endif // TARGET_BUS_INIT
 
-#ifdef USE_HARDWARE_REVISION_DETECTION
-    updateHardwareRevision();
-#endif
-
-#ifdef USE_VTX_RTC6705
-    rtc6705IOInit();
-#endif
-
-#ifdef USE_CAMERA_CONTROL
-    cameraControlInit();
-#endif
+//#ifdef USE_HARDWARE_REVISION_DETECTION
+//    updateHardwareRevision();
+//#endif
+//
+//#ifdef USE_VTX_RTC6705
+//    rtc6705IOInit();
+//#endif
+//
+//#ifdef USE_CAMERA_CONTROL
+//    cameraControlInit();
+//#endif
 
 // XXX These kind of code should goto target/config.c?
 // XXX And these no longer work properly as FEATURE_RANGEFINDER does control HCSR04 runtime configuration.
-#if defined(RANGEFINDER_HCSR04_SOFTSERIAL2_EXCLUSIVE) && defined(USE_RANGEFINDER_HCSR04) && defined(USE_SOFTSERIAL2)
-    if (feature(FEATURE_RANGEFINDER) && feature(FEATURE_SOFTSERIAL)) {
-        serialRemovePort(SERIAL_PORT_SOFTSERIAL2);
-    }
-#endif
-
-#if defined(RANGEFINDER_HCSR04_SOFTSERIAL1_EXCLUSIVE) && defined(USE_RANGEFINDER_HCSR04) && defined(USE_SOFTSERIAL1)
-    if (feature(FEATURE_RANGEFINDER) && feature(FEATURE_SOFTSERIAL)) {
-        serialRemovePort(SERIAL_PORT_SOFTSERIAL1);
-    }
-#endif
+//#if defined(RANGEFINDER_HCSR04_SOFTSERIAL2_EXCLUSIVE) && defined(USE_RANGEFINDER_HCSR04) && defined(USE_SOFTSERIAL2)
+//    if (feature(FEATURE_RANGEFINDER) && feature(FEATURE_SOFTSERIAL)) {
+//        serialRemovePort(SERIAL_PORT_SOFTSERIAL2);
+//    }
+//#endif
+//
+//#if defined(RANGEFINDER_HCSR04_SOFTSERIAL1_EXCLUSIVE) && defined(USE_RANGEFINDER_HCSR04) && defined(USE_SOFTSERIAL1)
+//    if (feature(FEATURE_RANGEFINDER) && feature(FEATURE_SOFTSERIAL)) {
+//        serialRemovePort(SERIAL_PORT_SOFTSERIAL1);
+//    }
+//#endif
 
 #ifdef USE_ADC
     adcConfigMutable()->vbat.enabled = (batteryConfig()->voltageMeterSource == VOLTAGE_METER_ADC);
@@ -597,55 +635,55 @@ void init(void)
 /*
  * CMS, display devices and OSD
  */
-#ifdef USE_CMS
-    cmsInit();
-#endif
+//#ifdef USE_CMS
+//    cmsInit();
+//#endif
+//
+//#if (defined(USE_OSD) || (defined(USE_MSP_DISPLAYPORT) && defined(USE_CMS)) || defined(USE_OSD_SLAVE))
+//    displayPort_t *osdDisplayPort = NULL;
+//#endif
 
-#if (defined(USE_OSD) || (defined(USE_MSP_DISPLAYPORT) && defined(USE_CMS)) || defined(USE_OSD_SLAVE))
-    displayPort_t *osdDisplayPort = NULL;
-#endif
+//#if defined(USE_OSD) && !defined(USE_OSD_SLAVE)
+//    //The OSD need to be initialised after GYRO to avoid GYRO initialisation failure on some targets
+//
+//    if (feature(FEATURE_OSD)) {
+//#if defined(USE_MAX7456)
+//        // If there is a max7456 chip for the OSD then use it
+//        osdDisplayPort = max7456DisplayPortInit(vcdProfile());
+//#elif defined(USE_OSD_OVER_MSP_DISPLAYPORT) // OSD over MSP; not supported (yet)
+//        osdDisplayPort = displayPortMspInit();
+//#endif
+//        // osdInit  will register with CMS by itself.
+//        osdInit(osdDisplayPort);
+//    }
+//#endif
 
-#if defined(USE_OSD) && !defined(USE_OSD_SLAVE)
-    //The OSD need to be initialised after GYRO to avoid GYRO initialisation failure on some targets
-
-    if (feature(FEATURE_OSD)) {
-#if defined(USE_MAX7456)
-        // If there is a max7456 chip for the OSD then use it
-        osdDisplayPort = max7456DisplayPortInit(vcdProfile());
-#elif defined(USE_OSD_OVER_MSP_DISPLAYPORT) // OSD over MSP; not supported (yet)
-        osdDisplayPort = displayPortMspInit();
-#endif
-        // osdInit  will register with CMS by itself.
-        osdInit(osdDisplayPort);
-    }
-#endif
-
-#if defined(USE_OSD_SLAVE) && !defined(USE_OSD)
-#if defined(USE_MAX7456)
-    // If there is a max7456 chip for the OSD then use it
-    osdDisplayPort = max7456DisplayPortInit(vcdProfile());
-    // osdInit  will register with CMS by itself.
-    osdSlaveInit(osdDisplayPort);
-#endif
-#endif
-
-#if defined(USE_CMS) && defined(USE_MSP_DISPLAYPORT)
-    // If BFOSD is not active, then register MSP_DISPLAYPORT as a CMS device.
-    if (!osdDisplayPort)
-        cmsDisplayPortRegister(displayPortMspInit());
-#endif
-
-#ifdef USE_DASHBOARD
-    // Dashbord will register with CMS by itself.
-    if (feature(FEATURE_DASHBOARD)) {
-        dashboardInit();
-    }
-#endif
-
-#if defined(USE_CMS) && defined(USE_SPEKTRUM_CMS_TELEMETRY)
-    // Register the srxl Textgen telemetry sensor as a displayport device
-    cmsDisplayPortRegister(displayPortSrxlInit());
-#endif
+//#if defined(USE_OSD_SLAVE) && !defined(USE_OSD)
+//#if defined(USE_MAX7456)
+//    // If there is a max7456 chip for the OSD then use it
+//    osdDisplayPort = max7456DisplayPortInit(vcdProfile());
+//    // osdInit  will register with CMS by itself.
+//    osdSlaveInit(osdDisplayPort);
+//#endif
+//#endif
+//
+//#if defined(USE_CMS) && defined(USE_MSP_DISPLAYPORT)
+//    // If BFOSD is not active, then register MSP_DISPLAYPORT as a CMS device.
+//    if (!osdDisplayPort)
+//        cmsDisplayPortRegister(displayPortMspInit());
+//#endif
+//
+//#ifdef USE_DASHBOARD
+//    // Dashbord will register with CMS by itself.
+//    if (feature(FEATURE_DASHBOARD)) {
+//        dashboardInit();
+//    }
+//#endif
+//
+//#if defined(USE_CMS) && defined(USE_SPEKTRUM_CMS_TELEMETRY)
+//    // Register the srxl Textgen telemetry sensor as a displayport device
+//    cmsDisplayPortRegister(displayPortSrxlInit());
+//#endif
 
 #ifdef USE_GPS
     if (feature(FEATURE_GPS)) {
@@ -656,13 +694,13 @@ void init(void)
     }
 #endif
 
-#ifdef USE_LED_STRIP
-    ledStripInit();
-
-    if (feature(FEATURE_LED_STRIP)) {
-        ledStripEnable();
-    }
-#endif
+//#ifdef USE_LED_STRIP
+//    ledStripInit();
+//
+//    if (feature(FEATURE_LED_STRIP)) {
+//        ledStripEnable();
+//    }
+//#endif
 
 #ifdef USE_TELEMETRY
     if (feature(FEATURE_TELEMETRY)) {
@@ -670,15 +708,15 @@ void init(void)
     }
 #endif
 
-#ifdef USE_ESC_SENSOR
-    if (feature(FEATURE_ESC_SENSOR)) {
-        escSensorInit();
-    }
-#endif
+//#ifdef USE_ESC_SENSOR
+//    if (feature(FEATURE_ESC_SENSOR)) {
+//        escSensorInit();
+//    }
+//#endif
 
-#ifdef USB_DETECT_PIN
-    usbCableDetectInit();
-#endif
+//#ifdef USB_DETECT_PIN
+//    usbCableDetectInit();
+//#endif
 
 #ifdef USE_TRANSPONDER
     if (feature(FEATURE_TRANSPONDER)) {
@@ -688,12 +726,12 @@ void init(void)
     }
 #endif
 
-#ifdef USE_FLASHFS
-#if defined(USE_FLASH_M25P16)
-    m25p16_init(flashConfig());
-#endif
-    flashfsInit();
-#endif
+//#ifdef USE_FLASHFS
+//#if defined(USE_FLASH_M25P16)
+//    m25p16_init(flashConfig());
+//#endif
+//    flashfsInit();
+//#endif
 
 #ifdef USE_SDCARD
     if (blackboxConfig()->device == BLACKBOX_DEVICE_SDCARD) {
@@ -719,47 +757,47 @@ void init(void)
     baroSetCalibrationCycles(CALIBRATING_BARO_CYCLES);
 #endif
 
-#ifdef USE_VTX_CONTROL
-    vtxControlInit();
-
-#if defined(USE_VTX_COMMON)
-    vtxCommonInit();
-    vtxInit();
-#endif
-
-#ifdef USE_VTX_SMARTAUDIO
-    vtxSmartAudioInit();
-#endif
-
-#ifdef USE_VTX_TRAMP
-    vtxTrampInit();
-#endif
-
-#ifdef USE_VTX_RTC6705
-#ifdef VTX_RTC6705_OPTIONAL
-    if (!vtxCommonDevice()) // external VTX takes precedence when configured.
-#endif
-    {
-        vtxRTC6705Init();
-    }
-#endif
-
-#endif // VTX_CONTROL
+//#ifdef USE_VTX_CONTROL
+//    vtxControlInit();
+//
+//#if defined(USE_VTX_COMMON)
+//    vtxCommonInit();
+//    vtxInit();
+//#endif
+//
+//#ifdef USE_VTX_SMARTAUDIO
+//    vtxSmartAudioInit();
+//#endif
+//
+//#ifdef USE_VTX_TRAMP
+//    vtxTrampInit();
+//#endif
+//
+//#ifdef USE_VTX_RTC6705
+//#ifdef VTX_RTC6705_OPTIONAL
+//    if (!vtxCommonDevice()) // external VTX takes precedence when configured.
+//#endif
+//    {
+//        vtxRTC6705Init();
+//    }
+//#endif
+//
+//#endif // VTX_CONTROL
 
     // start all timers
     // TODO - not implemented yet
-    timerStart();
-
-    ENABLE_STATE(SMALL_ANGLE);
-
-#ifdef SOFTSERIAL_LOOPBACK
-    // FIXME this is a hack, perhaps add a FUNCTION_LOOPBACK to support it properly
-    loopbackPort = (serialPort_t*)&(softSerialPorts[0]);
-    if (!loopbackPort->vTable) {
-        loopbackPort = openSoftSerial(0, NULL, 19200, SERIAL_NOT_INVERTED);
-    }
-    serialPrint(loopbackPort, "LOOPBACK\r\n");
-#endif
+//    timerStart();
+//
+//    ENABLE_STATE(SMALL_ANGLE);
+//
+//#ifdef SOFTSERIAL_LOOPBACK
+//    // FIXME this is a hack, perhaps add a FUNCTION_LOOPBACK to support it properly
+//    loopbackPort = (serialPort_t*)&(softSerialPorts[0]);
+//    if (!loopbackPort->vTable) {
+//        loopbackPort = openSoftSerial(0, NULL, 19200, SERIAL_NOT_INVERTED);
+//    }
+//    serialPrint(loopbackPort, "LOOPBACK\r\n");
+//#endif
 
     batteryInit(); // always needs doing, regardless of features.
 

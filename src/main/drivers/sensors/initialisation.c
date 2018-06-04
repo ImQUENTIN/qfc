@@ -48,7 +48,7 @@ bool sensorsAutodetect(void)
 
     // gyro must be initialised before accelerometer
 
-    bool gyroDetected = gyroInit();
+    bool gyroDetected = gyroInit();     // here, q.
 
     if (gyroDetected) {
         accInit(gyro.targetLooptime);

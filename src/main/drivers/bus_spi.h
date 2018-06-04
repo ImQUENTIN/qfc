@@ -77,7 +77,7 @@ typedef enum SPIDevice {
 #if defined(STM32F1)
 #define SPIDEV_COUNT 2
 #elif defined(STM32F3) || defined(STM32F4)
-#define SPIDEV_COUNT 3
+#define SPIDEV_COUNT 4  // changed here, pre is 3.
 #elif defined(STM32F7)
 #define SPIDEV_COUNT 4
 #else

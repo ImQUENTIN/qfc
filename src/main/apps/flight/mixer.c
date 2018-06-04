@@ -628,7 +628,7 @@ static void calculateThrottleAndCurrentMotorEndpoints(timeUs_t currentTimeUs)
         }
     } else {
         throttle = rcCommand[THROTTLE] - rxConfig()->mincheck;
-        currentThrottleInputRange = rcCommandThrottleRange;
+        currentThrottleInputRange = rcCommandThrottleRange;     // 默认是 max - middle = 1000
         motorRangeMin = motorOutputLow;
         motorRangeMax = motorOutputHigh;
         motorOutputMin = motorOutputLow;
@@ -747,11 +747,11 @@ void mixTable(timeUs_t currentTimeUs, uint8_t vbatPidCompensation)
 
     // Calculate and Limit the PIDsum
     const float scaledAxisPidRoll =
-        constrainf(axisPIDSum[FD_ROLL], -currentPidProfile->pidSumLimit, currentPidProfile->pidSumLimit) / PID_MIXER_SCALING;
+        constrainf(axisPIDSum[FD_ROLL], -currentPidProfile->pidSumLimit, currentPidProfile->pidSumLimit) / PID_MIXER_SCALING;   // limit = 500
     const float scaledAxisPidPitch =
-        constrainf(axisPIDSum[FD_PITCH], -currentPidProfile->pidSumLimit, currentPidProfile->pidSumLimit) / PID_MIXER_SCALING;
+        constrainf(axisPIDSum[FD_PITCH], -currentPidProfile->pidSumLimit, currentPidProfile->pidSumLimit) / PID_MIXER_SCALING;  // limit = 500
     float scaledAxisPidYaw =
-        constrainf(axisPIDSum[FD_YAW], -currentPidProfile->pidSumLimitYaw, currentPidProfile->pidSumLimitYaw) / PID_MIXER_SCALING;
+        constrainf(axisPIDSum[FD_YAW], -currentPidProfile->pidSumLimitYaw, currentPidProfile->pidSumLimitYaw) / PID_MIXER_SCALING;  // limit = 400
     if (!mixerConfig()->yaw_motors_reversed) {
         scaledAxisPidYaw = -scaledAxisPidYaw;
     }

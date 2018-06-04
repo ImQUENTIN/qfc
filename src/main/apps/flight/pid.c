@@ -439,7 +439,9 @@ void pidController(const pidProfile_t *pidProfile, const rollAndPitchTrims_t *an
 
     // ----------PID controller----------
     for (int axis = FD_ROLL; axis <= FD_YAW; axis++) {
-        float currentPidSetpoint = getSetpointRate(axis);
+
+        // ----- 当前PID设置点： 期望值PID值（输入）
+        float currentPidSetpoint = getSetpointRate(axis);   
         if (maxVelocity[axis]) {
             currentPidSetpoint = accelerationLimit(axis, currentPidSetpoint);
         }

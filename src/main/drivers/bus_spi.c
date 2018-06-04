@@ -107,14 +107,6 @@ uint32_t spiTimeoutUserCallback(SPI_TypeDef *instance)
     return spiDevice[device].errorCount;
 }
 
-bool spiBusTransfer(const busDevice_t *bus, const uint8_t *txData, uint8_t *rxData, int length)
-{
-    IOLo(bus->busdev_u.spi.csnPin);
-    spiTransfer(bus->busdev_u.spi.instance, txData, rxData, length);
-    IOHi(bus->busdev_u.spi.csnPin);
-    return true;
-}
-
 uint16_t spiGetErrorCounter(SPI_TypeDef *instance)
 {
     SPIDevice device = spiDeviceByInstance(instance);
@@ -132,6 +124,15 @@ void spiResetErrorCounter(SPI_TypeDef *instance)
     }
 }
 
+
+bool spiBusTransfer(const busDevice_t *bus, const uint8_t *txData, uint8_t *rxData, int length)
+{
+    IOLo(bus->busdev_u.spi.csnPin);
+    spiTransfer(bus->busdev_u.spi.instance, txData, rxData, length);
+    IOHi(bus->busdev_u.spi.csnPin);
+    return true;
+}
+
 bool spiBusWriteRegister(const busDevice_t *bus, uint8_t reg, uint8_t data)
 {
     IOLo(bus->busdev_u.spi.csnPin);
@@ -140,6 +141,18 @@ bool spiBusWriteRegister(const busDevice_t *bus, uint8_t reg, uint8_t data)
     IOHi(bus->busdev_u.spi.csnPin);
 
     return true;
+}
+
+
+uint8_t spiBusReadRegister(const busDevice_t *bus, uint8_t reg)
+{
+    uint8_t data;
+    IOLo(bus->busdev_u.spi.csnPin);
+    spiTransferByte(bus->busdev_u.spi.instance, reg | 0x80); // read transaction
+    spiTransfer(bus->busdev_u.spi.instance, NULL, &data, 1);
+    IOHi(bus->busdev_u.spi.csnPin);
+
+    return data;
 }
 
 bool spiBusReadRegisterBuffer(const busDevice_t *bus, uint8_t reg, uint8_t *data, uint8_t length)
@@ -152,16 +165,6 @@ bool spiBusReadRegisterBuffer(const busDevice_t *bus, uint8_t reg, uint8_t *data
     return true;
 }
 
-uint8_t spiBusReadRegister(const busDevice_t *bus, uint8_t reg)
-{
-    uint8_t data;
-    IOLo(bus->busdev_u.spi.csnPin);
-    spiTransferByte(bus->busdev_u.spi.instance, reg | 0x80); // read transaction
-    spiTransfer(bus->busdev_u.spi.instance, NULL, &data, 1);
-    IOHi(bus->busdev_u.spi.csnPin);
-
-    return data;
-}
 
 void spiBusSetInstance(busDevice_t *bus, SPI_TypeDef *instance)
 {
