@@ -69,9 +69,9 @@ uint32_t microsISR(void)
             // Record it for multiple calls within the same rollover period
             // (Will be cleared when serviced).
             // Note that multiple rollovers are not considered.
-
-            sysTickPending = 1;
-
+            sysTickUptime++;
+            sysTickPending = 0;
+            (void)(SysTick->CTRL);
             // Read VAL again to ensure the value is read after the rollover.
 
             cycle_cnt = SysTick->VAL;

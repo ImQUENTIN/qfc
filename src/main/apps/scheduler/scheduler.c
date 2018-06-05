@@ -238,7 +238,7 @@ FAST_CODE void scheduler(void)
         if ((timeDelta_t)(currentTimeUs - nextExecuteAt) >= 0) {
             outsideRealtimeGuardInterval = false;
             break;
-        }
+            }
     }
 
     // The task to be invoked

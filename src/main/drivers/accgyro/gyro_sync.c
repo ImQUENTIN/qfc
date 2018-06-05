@@ -49,6 +49,7 @@ uint32_t gyroSetSampleRate(gyroDev_t *gyro, uint8_t lpf, uint8_t gyroSyncDenomin
                 gyro->gyroRateKHz = GYRO_RATE_1_kHz;
                 gyroSamplePeriod = 1000.0f;
                 break;
+                
             default:
                 gyro->gyroRateKHz = GYRO_RATE_8_kHz;
                 gyroSamplePeriod = 125.0f;
@@ -71,6 +72,7 @@ uint32_t gyroSetSampleRate(gyroDev_t *gyro, uint8_t lpf, uint8_t gyroSyncDenomin
 
     // calculate gyro divider and targetLooptime (expected cycleTime)
     gyro->mpuDividerDrops  = gyroSyncDenominator - 1;
+    
     const uint32_t targetLooptime = (uint32_t)(gyroSyncDenominator * gyroSamplePeriod);
     return targetLooptime;
 }

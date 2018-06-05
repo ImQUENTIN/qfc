@@ -110,7 +110,7 @@ static void taskHandleSerial(timeUs_t currentTimeUs)
 void taskBatteryAlerts(timeUs_t currentTimeUs)
 {
     if (!ARMING_FLAG(ARMED)) {
-		// 没有解锁，
+        // 没有解锁，
         // the battery *might* fall out in flight, but if that happens the FC will likely
         // be off too unless the user has battery backup.
         batteryUpdatePresence();
@@ -212,16 +212,18 @@ void fcTasksInit(void)
     setTaskEnabled(TASK_SERIAL, true);
     rescheduleTask(TASK_SERIAL, TASK_PERIOD_HZ(serialConfig()->serial_update_rate_hz));
 
-//    const bool useBatteryVoltage = batteryConfig()->voltageMeterSource != VOLTAGE_METER_NONE;
-//    setTaskEnabled(TASK_BATTERY_VOLTAGE, useBatteryVoltage);
-//    const bool useBatteryCurrent = batteryConfig()->currentMeterSource != CURRENT_METER_NONE;
-//    setTaskEnabled(TASK_BATTERY_CURRENT, useBatteryCurrent);
-//#ifdef USE_OSD_SLAVE
-//    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts;
-//#else
-//    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts || feature(FEATURE_OSD);
-//#endif
-//    setTaskEnabled(TASK_BATTERY_ALERTS, (useBatteryVoltage || useBatteryCurrent) && useBatteryAlerts);
+    const bool useBatteryVoltage = batteryConfig()->voltageMeterSource != VOLTAGE_METER_NONE;
+    setTaskEnabled(TASK_BATTERY_VOLTAGE, useBatteryVoltage);
+    
+    const bool useBatteryCurrent = batteryConfig()->currentMeterSource != CURRENT_METER_NONE;
+    setTaskEnabled(TASK_BATTERY_CURRENT, useBatteryCurrent);
+
+#ifdef USE_OSD_SLAVE
+    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts;
+#else
+    const bool useBatteryAlerts = batteryConfig()->useVBatAlerts || batteryConfig()->useConsumptionAlerts || feature(FEATURE_OSD);
+#endif
+    setTaskEnabled(TASK_BATTERY_ALERTS, (useBatteryVoltage || useBatteryCurrent) && useBatteryAlerts);
 
 #ifdef USE_TRANSPONDER
     setTaskEnabled(TASK_TRANSPONDER, feature(FEATURE_TRANSPONDER));
@@ -399,8 +401,7 @@ cfTask_t cfTasks[TASK_COUNT] = {
         .taskName = "PID",
         .subTaskName = "GYRO",
         .taskFunc = taskMainPidLoop,
-        .desiredPeriod = TASK_PERIOD_HZ(1000),//TASK_GYROPID_DESIRED_PERIOD,
-//        .staticPriority = TASK_PRIORITY_HIGH,
+        .desiredPeriod = TASK_GYROPID_DESIRED_PERIOD,
         .staticPriority = TASK_PRIORITY_REALTIME,
     },
 

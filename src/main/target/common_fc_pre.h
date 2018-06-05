@@ -30,11 +30,11 @@
 #define USE_UART1_TX_DMA
 #endif
 
-#ifdef STM32F3
-#define MINIMAL_CLI
-#define USE_DSHOT
-#define USE_GYRO_DATA_ANALYSE
-#endif
+//#ifdef STM32F3
+//#define MINIMAL_CLI
+//#define USE_DSHOT
+//#define USE_GYRO_DATA_ANALYSE
+//#endif
 
 #ifdef STM32F4
 //#define USE_DSHOT
@@ -51,6 +51,7 @@
 #endif // STM32F4
 
 //#ifdef STM32F722xx
+
 //#define USE_ITCM_RAM
 //#endif
 //#ifdef STM32F7
@@ -98,7 +99,7 @@
 //#define USE_SERIAL_RX
 //#define USE_SERIALRX_CRSF       // Team Black Sheep Crossfire protocol
 //#define USE_SERIALRX_IBUS       // FlySky and Turnigy receivers
-#define USE_SERIALRX_SBUS       // Frsky and Futaba receivers
+//#define USE_SERIALRX_SBUS       // Frsky and Futaba receivers
 //#define USE_SERIALRX_SPEKTRUM   // SRXL, DSM2 and DSMX protocol
 //#define USE_SERIALRX_SUMD       // Graupner Hott protocol
 //#define USE_SERIALRX_SUMH       // Graupner legacy protocol
@@ -169,7 +170,7 @@
 #endif
 
 #if (FLASH_SIZE > 256)
-#define USE_ALT_HOLD
+//#define USE_ALT_HOLD          // 高度保持
 //#define USE_DASHBOARD
 //#define USE_GPS
 //#define USE_GPS_NMEA

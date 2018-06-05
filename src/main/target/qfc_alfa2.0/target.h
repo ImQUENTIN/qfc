@@ -211,16 +211,16 @@
 * @note    ADC
 ************************************************************************************************/
 #define USE_ADC
-//#define ADC_INSTANCE            ADC1
-//#define ADC_INSTANCE            ADC2
-    
+#define DEFAULT_VOLTAGE_METER_SOURCE    VOLTAGE_METER_ADC
+#define DEFAULT_CURRENT_METER_SOURCE    CURRENT_METER_ADC
+#define VBAT_SCALE_DEFAULT              (110 * 2)   // 板子有两个10K分压需要乘2, 电流计相同。
+#define CURRENT_METER_SCALE_DEFAULT     (400 * 2)   // for Allegro ACS758LCB-100U (40mV/A)
+
 #define VBAT_ADC_PIN            PC0
 #define CURRENT_METER_ADC_PIN   PC1
 //#define RSSI_ADC_PIN            PC2
 #define EXTERNAL1_ADC_PIN       PC4
 
-#define DEFAULT_VOLTAGE_METER_SOURCE    VOLTAGE_METER_ADC
-#define DEFAULT_CURRENT_METER_SOURCE	CURRENT_METER_ADC
 
 /************************************************************************************************
 * @note    SONAR

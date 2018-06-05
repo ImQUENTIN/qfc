@@ -27,41 +27,41 @@ typedef enum {
     // ARM flag
     BOXARM = 0,
     // FLIGHT_MODE
-    BOXANGLE,
-    BOXHORIZON,
-    BOXMAG,
-    BOXBARO,
-    BOXGPSHOME,
-    BOXGPSHOLD,
-    BOXHEADFREE,
-    BOXPASSTHRU,
-    BOXRANGEFINDER,
-    BOXFAILSAFE,
+    BOXANGLE,       // 1
+    BOXHORIZON,     // 2
+    BOXMAG,         // 3
+    BOXBARO,        // 4
+    BOXGPSHOME,     // 5
+    BOXGPSHOLD,     // 6
+    BOXHEADFREE,    // 7
+    BOXPASSTHRU,    // 8
+    BOXRANGEFINDER, // 9
+    BOXFAILSAFE,    // 10
     BOXID_FLIGHTMODE_LAST = BOXFAILSAFE,
 
     // RCMODE flags
-    BOXANTIGRAVITY,
-    BOXHEADADJ,
-    BOXCAMSTAB,
-    BOXCAMTRIG,
-    BOXBEEPERON,
-    BOXLEDMAX,
-    BOXLEDLOW,
-    BOXLLIGHTS,
-    BOXCALIB,
-    BOXGOV,
-    BOXOSD,
-    BOXTELEMETRY,
-    BOXGTUNE,
-    BOXSERVO1,
-    BOXSERVO2,
-    BOXSERVO3,
-    BOXBLACKBOX,
-    BOXAIRMODE,
-    BOX3D,
-    BOXFPVANGLEMIX,
-    BOXBLACKBOXERASE,
-    BOXCAMERA1,
+    BOXANTIGRAVITY, // 12
+    BOXHEADADJ,     // 13
+    BOXCAMSTAB,     // 14
+    BOXCAMTRIG,     // 15
+    BOXBEEPERON,    // 16
+    BOXLEDMAX,      // 17
+    BOXLEDLOW,      // 18
+    BOXLLIGHTS,     // 19
+    BOXCALIB,       // 20
+    BOXGOV,         // 21
+    BOXOSD,         // 22
+    BOXTELEMETRY,   // 23
+    BOXGTUNE,       // 24
+    BOXSERVO1,      // 25
+    BOXSERVO2,      // 26
+    BOXSERVO3,      // 27
+    BOXBLACKBOX,    // 28
+    BOXAIRMODE,     // 29
+    BOX3D,          // 30
+    BOXFPVANGLEMIX, // 31
+    BOXBLACKBOXERASE,   // 0
+    BOXCAMERA1,         // 1
     BOXCAMERA2,
     BOXCAMERA3,
     BOXFLIPOVERAFTERCRASH,

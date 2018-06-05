@@ -100,7 +100,6 @@ bool areSticksInApModePosition(uint16_t ap_mode)
 
 throttleStatus_e calculateThrottleStatus(void)
 {
-#ifndef QFC     // 删减代码
     if (feature(FEATURE_3D)) {
         if (IS_RC_MODE_ACTIVE(BOX3D) || flight3DConfig()->switched_mode3d) {
             if (rcData[THROTTLE] < rxConfig()->mincheck) {
@@ -110,7 +109,6 @@ throttleStatus_e calculateThrottleStatus(void)
             return THROTTLE_LOW;
         }
     } else 
-#endif
     if (rcData[THROTTLE] < rxConfig()->mincheck) {
         return THROTTLE_LOW;
     }

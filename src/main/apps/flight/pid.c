@@ -106,7 +106,7 @@ void resetPidProfile(pidProfile_t *pidProfile)
         .pidSumLimit = PIDSUM_LIMIT,
         .pidSumLimitYaw = PIDSUM_LIMIT_YAW,
         .yaw_lpf_hz = 0,
-        .dterm_lpf_hz = 100,    // filtering ON by default
+        .dterm_lpf_hz = 100,                // filtering ON by default
         .dterm_notch_hz = 260,
         .dterm_notch_cutoff = 160,
         .dterm_filter_type = FILTER_BIQUAD,
@@ -116,8 +116,10 @@ void resetPidProfile(pidProfile_t *pidProfile)
         .levelAngleLimit = 55,
         .setpointRelaxRatio = 100,
         .dtermSetpointWeight = 0,
+
         .yawRateAccelLimit = 100,
         .rateAccelLimit = 0,
+
         .itermThrottleThreshold = 350,
         .itermAcceleratorGain = 1000,
         .crash_time = 500,          // ms
@@ -293,8 +295,10 @@ void pidInitConfig(const pidProfile_t *pidProfile)
     horizonTiltExpertMode = pidProfile->horizon_tilt_expert_mode;
     horizonCutoffDegrees = (175 - pidProfile->horizon_tilt_effect) * 1.8f;
     horizonFactorRatio = (100 - pidProfile->horizon_tilt_effect) * 0.01f;
+
     maxVelocity[FD_ROLL] = maxVelocity[FD_PITCH] = pidProfile->rateAccelLimit * 100 * dT;
     maxVelocity[FD_YAW] = pidProfile->yawRateAccelLimit * 100 * dT;
+    
     const float ITermWindupPoint = (float)pidProfile->itermWindupPointPercent / 100.0f;
     ITermWindupPointInv = 1.0f / (1.0f - ITermWindupPoint);
     crashTimeLimitUs = pidProfile->crash_time * 1000;
@@ -442,6 +446,7 @@ void pidController(const pidProfile_t *pidProfile, const rollAndPitchTrims_t *an
 
         // ----- 当前PID设置点： 期望值PID值（输入）
         float currentPidSetpoint = getSetpointRate(axis);   
+        
         if (maxVelocity[axis]) {
             currentPidSetpoint = accelerationLimit(axis, currentPidSetpoint);
         }

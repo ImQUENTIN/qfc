@@ -365,13 +365,6 @@ void init(void)
     LED1_ON;
     LED2_ON;
 
-  //  System_Clk_Output_Init();
-//    HSE_Clk_Output_Init();
-//    while(1)    
-//        {
-////        GPIOC->ODR ^= GPIO_Pin_15;
-//        }
-//    mytest();
 #ifdef USE_EXTI
     EXTIInit();
 #endif

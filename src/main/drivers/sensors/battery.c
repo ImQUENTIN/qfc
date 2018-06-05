@@ -104,7 +104,7 @@ PG_RESET_TEMPLATE(batteryConfig_t, batteryConfig,
 
     .vbatfullcellvoltage = 41
 );
-
+ 
 void batteryUpdateVoltage(timeUs_t currentTimeUs)
 {
     UNUSED(currentTimeUs);

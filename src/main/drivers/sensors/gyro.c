@@ -145,7 +145,7 @@ static void gyroInitSensorFilters(gyroSensor_t *gyroSensor);
 #ifdef STM32F10X
 #define GYRO_SYNC_DENOM_DEFAULT 8
 #elif defined(USE_GYRO_SPI_MPU6000) || defined(USE_GYRO_SPI_MPU6500) || defined(USE_GYRO_SPI_ICM20601) || defined(USE_GYRO_SPI_ICM20649) \
-   || defined(USE_GYRO_SPI_ICM20689)
+   || defined(USE_GYRO_SPI_ICM20689) || defined(USE_GYRO_SPI_MPU9250)
 #define GYRO_SYNC_DENOM_DEFAULT 1
 #else
 #define GYRO_SYNC_DENOM_DEFAULT 4
@@ -441,9 +441,11 @@ static bool gyroInitSensor(gyroSensor_t *gyroSensor)
         gyroConfigMutable()->gyro_use_32khz = false;
         break;
     }
+    
 //////////////////////////// quentin ///////////////////////////////////////////
     // Must set gyro targetLooptime before gyroDev.init and initialisation of filters
-     gyro.targetLooptime = gyroSetSampleRate(&gyroSensor->gyroDev, gyroConfig()->gyro_lpf, gyroConfig()->gyro_sync_denom, gyroConfig()->gyro_use_32khz);
+    gyro.targetLooptime = gyroSetSampleRate(&gyroSensor->gyroDev, gyroConfig()->gyro_lpf, gyroConfig()->gyro_sync_denom, gyroConfig()->gyro_use_32khz);
+    
     gyroSensor->gyroDev.lpf = gyroConfig()->gyro_lpf;
     gyroSensor->gyroDev.initFn(&gyroSensor->gyroDev);
     if (gyroConfig()->gyro_align != ALIGN_DEFAULT) {
@@ -1004,6 +1006,10 @@ static FAST_CODE void gyroUpdateSensor(gyroSensor_t *gyroSensor, timeUs_t curren
         }
     }
 }
+
+/************************************************************************************************
+* @note    返回校验后，且经过单位换算的角速度信息：d/sec
+************************************************************************************************/
 
 FAST_CODE void gyroUpdate(timeUs_t currentTimeUs)
 {

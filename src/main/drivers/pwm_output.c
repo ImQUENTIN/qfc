@@ -225,23 +225,23 @@ void motorDevInit(const motorDevConfig_t *motorConfig, uint16_t idlePulse, uint8
     float sLen = 0;
     switch (motorConfig->motorPwmProtocol) {
     default:
-//    case PWM_TYPE_ONESHOT125:
-//        sMin = 125e-6f;
-//        sLen = 125e-6f;
-//        break;
-//    case PWM_TYPE_ONESHOT42:
-//        sMin = 42e-6f;
-//        sLen = 42e-6f;
-//        break;
-//    case PWM_TYPE_MULTISHOT:
-//        sMin = 5e-6f;
-//        sLen = 20e-6f;
-//        break;
-//    case PWM_TYPE_BRUSHED:
-//        sMin = 0;
-//        useUnsyncedPwm = true;
-//        idlePulse = 0;
-//        break;
+    case PWM_TYPE_ONESHOT125:
+        sMin = 125e-6f;
+        sLen = 125e-6f;
+        break;
+    case PWM_TYPE_ONESHOT42:
+        sMin = 42e-6f;
+        sLen = 42e-6f;
+        break;
+    case PWM_TYPE_MULTISHOT:
+        sMin = 5e-6f;
+        sLen = 20e-6f;
+        break;
+    case PWM_TYPE_BRUSHED:
+        sMin = 0;
+        useUnsyncedPwm = true;
+        idlePulse = 0;
+        break;
     case PWM_TYPE_STANDARD:
         sMin = 1e-3f;
         sLen = 1e-3f;
@@ -340,13 +340,13 @@ void motorDevInit(const motorDevConfig_t *motorConfig, uint16_t idlePulse, uint8
         motors[motorIndex].enabled = true;
 
         // for test
-        pwmWriteStandard(motorIndex, 1000+250*(1+motorIndex));
+       //pwmWriteStandard(motorIndex, 1500);//1000+250*(1+motorIndex));
     }
 
     pwmMotorsEnabled = true;
 }
 
-pwmOutputPort_t *pwmGetMotors(void)
+pwmOutputPort_t *pwmGetMotors(void) 
 {
     return motors;
 }
