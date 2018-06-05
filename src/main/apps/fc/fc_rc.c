@@ -272,6 +272,7 @@ void updateRcCommands(void)
 {
     // PITCH & ROLL only dynamic PID adjustment,  depending on throttle value
     int32_t prop;
+    // 油门增大到 tpa_breakpoint 时，pid的调节应当变弱些，否则反应太过敏感。
     if (rcData[THROTTLE] < currentControlRateProfile->tpa_breakpoint) {
         prop = 100;
         throttlePIDAttenuation = 1.0f;

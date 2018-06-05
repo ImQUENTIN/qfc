@@ -155,8 +155,10 @@ static void updateBatteryBeeperAlert(void)
 
 void batteryUpdatePresence(void)
 {
+    // 电压稳定
     bool isVoltageStable = ABS(voltageMeter.filtered - voltageMeter.unfiltered) <= VBAT_STABLE_MAX_DELTA;
 
+    // 是电池电压
     bool isVoltageFromBat = (voltageMeter.filtered >= batteryConfig()->vbatnotpresentcellvoltage  //above ~0V
                             && voltageMeter.filtered <= batteryConfig()->vbatmaxcellvoltage)  //1s max cell voltage check
                             || voltageMeter.filtered > batteryConfig()->vbatnotpresentcellvoltage*2; //USB voltage - 2s or more check

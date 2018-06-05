@@ -42,7 +42,7 @@
 #define I2C3_OVERCLOCK true
 //#define USE_GYRO_DATA_ANALYSE       // 需要增加 FEATURE_DYNAMIC_FILTER
 #define USE_ADC
-//#define USE_ADC_INTERNAL	
+//#define USE_ADC_INTERNAL
 
 #if defined(STM32F40_41xxx) || defined(STM32F411xE)
 #define USE_OVERCLOCK
