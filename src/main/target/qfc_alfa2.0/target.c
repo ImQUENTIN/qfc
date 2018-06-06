@@ -71,29 +71,35 @@ const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {
 #include "sensors/battery.h"
 #include "sensors/compass.h"
 #include "sensors/gyro.h"
+#include "sensors/acceleration.h"
 
-
-//#define VBAT_SCALE 100
-
+#define VBAT_SCALE 101
 
 // alternative defaults settings for MULTIFLITEPICO targets
 void targetConfiguration(void)
 {
 
+    // 加速度计 零值    
+
+    accelerometerConfigMutable()->accZero.raw[0]  = 0xffc3;
+    accelerometerConfigMutable()->accZero.raw[1]  = 0x0045;
+    accelerometerConfigMutable()->accZero.raw[2]  = 0xffb0;
+    
 //  compassConfigMutable()->mag_hardware = MAG_NONE;            // disabled by default
 
-//    voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatscale = VBAT_SCALE;
-//    voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatresdivval = 15;
-//    voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatresdivmultiplier = 4;
-//    batteryConfigMutable()->vbatmaxcellvoltage = 44;
-//    batteryConfigMutable()->vbatmincellvoltage = 32;
-//    batteryConfigMutable()->vbatwarningcellvoltage = 33;
+    // 电压计
+    voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatscale = VBAT_SCALE;
+    voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatresdivval = 10;
+    voltageSensorADCConfigMutable(VOLTAGE_SENSOR_ADC_VBAT)->vbatresdivmultiplier = 1;
+    batteryConfigMutable()->vbatmaxcellvoltage = 44;
+    batteryConfigMutable()->vbatmincellvoltage = 32;
+    batteryConfigMutable()->vbatwarningcellvoltage = 33;
 
 //    rxConfigMutable()->spektrum_sat_bind = 5;
 //    rxConfigMutable()->spektrum_sat_bind_autoreset = 1;
 //
-//    rcControlsConfigMutable()->yaw_deadband = 2;
-//    rcControlsConfigMutable()->deadband = 2;
+    rcControlsConfigMutable()->yaw_deadband = 2;
+    rcControlsConfigMutable()->deadband = 2;
 
     modeActivationConditionsMutable(0)->modeId          = BOXANGLE;
     modeActivationConditionsMutable(0)->auxChannelIndex = AUX1 - NON_AUX_CHANNEL_COUNT;
@@ -108,8 +114,8 @@ void targetConfiguration(void)
     failsafeConfigMutable()->failsafe_delay = 2;
     failsafeConfigMutable()->failsafe_off_delay = 0;
 
-    gyroConfigMutable()->gyro_sync_denom = 4;
-    pidConfigMutable()->pid_process_denom = 1;
+    gyroConfigMutable()->gyro_sync_denom =  1;          //  gyro 采样周期 8K， PID /4 = 2K
+    pidConfigMutable()->pid_process_denom = 4;          // 使用4次数据滤波
 
     for (uint8_t pidProfileIndex = 0; pidProfileIndex < MAX_PROFILE_COUNT; pidProfileIndex++) {
         pidProfile_t *pidProfile = pidProfilesMutable(pidProfileIndex);

@@ -110,8 +110,10 @@ float applyRaceFlightRates(const int axis, float rcCommandf, const float rcComma
 {
     // -1.0 to 1.0 ranged and curved
     rcCommandf = ((1.0f + 0.01f * currentControlRateProfile->rcExpo[axis] * (rcCommandf * rcCommandf - 1.0f)) * rcCommandf);
+    
     // convert to -2000 to 2000 range using acro+ modifier
     float angleRate = 10.0f * currentControlRateProfile->rcRates[axis] * rcCommandf;
+
     angleRate = angleRate * (1 + rcCommandfAbs * (float)currentControlRateProfile->rates[axis] * 0.01f);
 
     return angleRate;
@@ -379,6 +381,7 @@ void initRcProcessing(void)
     for (int i = 0; i < THROTTLE_LOOKUP_LENGTH; i++) {
         const int16_t tmp = 10 * i - currentControlRateProfile->thrMid8;
         uint8_t y = 1;
+    
         if (tmp > 0)
             y = 100 - currentControlRateProfile->thrMid8;
         if (tmp < 0)

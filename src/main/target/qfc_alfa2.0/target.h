@@ -58,7 +58,7 @@
 //#define USE_GYRO_SPI_MPU6000
 //#define GYRO_MPU6000_ALIGN      CW270_DEG
 #define USE_GYRO_SPI_MPU9250
-#define GYRO_MPU9250_ALIGN        CW0_DEG_FLIP      //   
+#define GYRO_MPU9250_ALIGN        CW0_DEG_FLIP      //   翻转，gyro安装位置
 //#define USE_GYRO_SPI_ADIS16405
 
 
@@ -67,7 +67,7 @@
 //#define USE_ACC_SPI_MPU6000
 //#define ACC_MPU6000_ALIGN       CW270_DEG
 #define USE_ACC_SPI_MPU9250
-#define ACC_MPU9250_ALIGN         CW0_DEG_FLIP
+#define ACC_MPU9250_ALIGN         CW0_DEG_FLIP     //   翻转，gyro安装位置
 //#define USE_ACC_SPI_ADIS16405
 
 #undef USE_MAG
@@ -213,8 +213,8 @@
 #define USE_ADC
 #define DEFAULT_VOLTAGE_METER_SOURCE    VOLTAGE_METER_ADC
 #define DEFAULT_CURRENT_METER_SOURCE    CURRENT_METER_ADC
-#define VBAT_SCALE_DEFAULT              102
-#define ADC_VOLTAGE_REFERENCE_MV        3283
+//#define ADC_VOLTAGE_REFERENCE_MV        3289        // 电压计校正
+
 
 #define VBAT_ADC_PIN                    PC0
 #define CURRENT_METER_ADC_PIN           PC1
