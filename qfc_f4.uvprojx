@@ -423,6 +423,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\main\platform.h</FilePath>
             </File>
+            <File>
+              <FileName>common_fc_pre.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\main\target\common_fc_pre.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

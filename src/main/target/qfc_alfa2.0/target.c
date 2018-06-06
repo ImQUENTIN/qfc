@@ -78,6 +78,9 @@ const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {
 // alternative defaults settings for MULTIFLITEPICO targets
 void targetConfiguration(void)
 {
+    // 定高模式 : 速率定高不要用，放弃。
+//     rcControlsConfigMutable()->alt_hold_fast_change = 0;   // 使用速率控制高度，非油门
+    
 
     // 加速度计 零值    
 
@@ -108,8 +111,13 @@ void targetConfiguration(void)
     
     modeActivationConditionsMutable(1)->modeId          = BOXHORIZON;
     modeActivationConditionsMutable(1)->auxChannelIndex = AUX1 - NON_AUX_CHANNEL_COUNT;
-    modeActivationConditionsMutable(1)->range.startStep = CHANNEL_VALUE_TO_STEP(1425);
-    modeActivationConditionsMutable(1)->range.endStep   = CHANNEL_VALUE_TO_STEP(1575);
+    modeActivationConditionsMutable(1)->range.startStep = CHANNEL_VALUE_TO_STEP(1800);
+    modeActivationConditionsMutable(1)->range.endStep   = CHANNEL_VALUE_TO_STEP(2000);
+    
+    modeActivationConditionsMutable(2)->modeId          = BOXBARO;
+    modeActivationConditionsMutable(2)->auxChannelIndex = AUX2 - NON_AUX_CHANNEL_COUNT;
+    modeActivationConditionsMutable(2)->range.startStep = CHANNEL_VALUE_TO_STEP(1800);
+    modeActivationConditionsMutable(2)->range.endStep   = CHANNEL_VALUE_TO_STEP(2000);
 
     failsafeConfigMutable()->failsafe_delay = 2;
     failsafeConfigMutable()->failsafe_off_delay = 0;

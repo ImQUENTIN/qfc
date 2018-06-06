@@ -252,7 +252,7 @@ void calculateEstimatedAltitude(timeUs_t currentTimeUs)
 
         // Integrator - velocity, cm/sec
         if (accSumCount) {
-            accZ_tmp = (float)accSum[2] / accSumCount;
+            accZ_tmp = (float)accSum[Z] / accSumCount;
         }
         const float vel_acc = accZ_tmp * accVelScale * (float)accTimeSum;
 
