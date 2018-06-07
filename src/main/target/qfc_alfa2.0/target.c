@@ -78,8 +78,8 @@ const timerHardware_t timerHardware[USABLE_TIMER_CHANNEL_COUNT] = {
 // alternative defaults settings for MULTIFLITEPICO targets
 void targetConfiguration(void)
 {
-    // 定高模式 : 速率定高不要用，放弃。
-//     rcControlsConfigMutable()->alt_hold_fast_change = 0;   // 使用速率控制高度，非油门
+    // 定高模式 
+    rcControlsConfigMutable()->alt_hold_fast_change = 1;   // 使用油门控制定高高度
     
 
     // 加速度计 零值    

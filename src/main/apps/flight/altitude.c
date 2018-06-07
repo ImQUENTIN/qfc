@@ -132,19 +132,65 @@ void applyAltHold(void)
 
 void updateAltHoldState(void)
 {
+// 
+#ifdef  INITIAL_THRO_HOLD
+    //  当油门高于中位超过1s时自动进入高度保持状态，并把中位油门作为初始油门   
+    static int16_t rcDelayMs;
+    static uint32_t rcDelayUs;
+    static timeUs_t currentTimeUs, previousTimeUs = 0;
+    static bool doNotRepeat  = false;
+        
+    if (rcData[THROTTLE] > rxConfig()->midrc) {
+        if (rcDelayMs <= INT16_MAX - 1000) {
+            currentTimeUs =  micros();
+            rcDelayUs += currentTimeUs - previousTimeUs;
+            previousTimeUs = currentTimeUs;
+            
+            rcDelayMs = rcDelayUs / 1000;
+        }
+        } else {
+            rcDelayUs = 0;
+            rcDelayMs = 0;
+            previousTimeUs = 0;
+//            doNotRepeat = false;
+        }
+
+        if (!doNotRepeat && rcData[THROTTLE] > rxConfig()->midrc && rcDelayMs > 1000){
+            
+            doNotRepeat = true;
+        }
+        else return;
+
+        
+//        // Baro alt hold activate
+//        if (!IS_RC_MODE_ACTIVE(BOXBARO)) {
+//            DISABLE_FLIGHT_MODE(BARO_MODE);
+//            return;
+//        }
+
+        if (!FLIGHT_MODE(BARO_MODE)) {
+        ENABLE_FLIGHT_MODE(BARO_MODE);
+        AltHold = estimatedAltitude;        
+        initialThrottleHold = INITIAL_THRO_HOLD;       
+        errorVelocityI = 0;
+        altHoldThrottleAdjustment = 0;
+    }
+        
+#else   // 
     // Baro alt hold activate
     if (!IS_RC_MODE_ACTIVE(BOXBARO)) {
         DISABLE_FLIGHT_MODE(BARO_MODE);
         return;
     }
-
-    if (!FLIGHT_MODE(BARO_MODE)) {
+        if (!FLIGHT_MODE(BARO_MODE)) {
         ENABLE_FLIGHT_MODE(BARO_MODE);
         AltHold = estimatedAltitude;
         initialThrottleHold = rcData[THROTTLE];
         errorVelocityI = 0;
         altHoldThrottleAdjustment = 0;
     }
+#endif
+
 }
 
 void updateRangefinderAltHoldState(void)
@@ -253,9 +299,9 @@ void calculateEstimatedAltitude(timeUs_t currentTimeUs)
         // Integrator - velocity, cm/sec
         if (accSumCount) {
             accZ_tmp = (float)accSum[Z] / accSumCount;
-        }
-        const float vel_acc = accZ_tmp * accVelScale * (float)accTimeSum;
-
+        }                                                                   // accVelScale = 9.80665f / acc.dev.acc_1G / 10000.0f;  (1e6/1e2=1e4)
+        const float vel_acc = accZ_tmp * accVelScale * (float)accTimeSum;   // 这段时间内的加速度平均值*delat时间 = 这段时间内的平均速度。
+                                                                            // vel_acc 是这一段时间内的平均速度！！
         // Integrator - Altitude in cm
         accAlt += (vel_acc * 0.5f) * dt + vel * dt;  // integrate velocity to get distance (x= a/2 * t^2)
         accAlt = accAlt * CONVERT_PARAMETER_TO_FLOAT(barometerConfig()->baro_cf_alt) + (float)baro.BaroAlt * (1.0f - CONVERT_PARAMETER_TO_FLOAT(barometerConfig()->baro_cf_alt));    // complementary filter for altitude estimation (baro & acc)
@@ -268,7 +314,7 @@ void calculateEstimatedAltitude(timeUs_t currentTimeUs)
     DEBUG_SET(DEBUG_ALTITUDE, DEBUG_ALTITUDE_VEL, vel);
     DEBUG_SET(DEBUG_ALTITUDE, DEBUG_ALTITUDE_HEIGHT, accAlt);
 
-    imuResetAccelerationSum();
+    imuResetAccelerationSum();      // 清零 accSumCount, accTimeSum, accSum[i]，重新计算下一段时间内的平均加速度值
 
     int32_t baroVel = 0;
 #ifdef USE_BARO

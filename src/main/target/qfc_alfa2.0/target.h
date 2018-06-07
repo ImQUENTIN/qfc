@@ -106,9 +106,8 @@
 //#define MAX7456_SPI_INSTANCE    SPI2
 //#define MAX7456_SPI_CS_PIN      SPI2_NSS_PIN
 
-
-//#define USE_CMS         // ??? what's this
-
+// 使用油门中位作为初始油门。
+#define INITIAL_THRO_HOLD           rxConfig()->midrc
 
 /************************************************************************************************
 * @note    i2C
